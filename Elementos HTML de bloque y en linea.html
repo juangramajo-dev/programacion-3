@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+<!-- saved from url=(0090)https://frlr.cvg.utn.edu.ar/pluginfile.php/60365/mod_resource/content/1/index.html?embed=1 -->
+<html lang="es" data-qb-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Elementos HTML de bloque y en linea</title>
+    <link rel="stylesheet" href="master.css">
+    <link rel="stylesheet" href="./Elementos HTML de bloque y en linea_files/tokyo-night-dark.min.css">
+    <style>
+      :root {
+        --bg: #0d1117;
+        --sidebar: #161b22;
+        --text: #c9d1d9;
+        --accent: #58a6ff;
+        --hover: #21262d;
+      }
+      body {
+        margin: 0;
+        display: flex;
+        font-family: "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      #sidebar {
+        width: 280px;
+        height: 100vh;
+        background: var(--sidebar);
+        border-right: 1px solid #30363d;
+        overflow-y: auto;
+        position: fixed;
+      }
+      #content {
+        margin-left: 280px;
+        padding: 40px;
+        width: 100%;
+        max-width: 900px;
+      }
+      .menu-item {
+        padding: 12px 20px;
+        cursor: pointer;
+        border-bottom: 1px solid #30363d;
+        transition: 0.2s;
+      }
+      .menu-item:hover {
+        background: var(--hover);
+        color: var(--accent);
+      }
+      .content-section {
+        animation: fadeIn 0.3s ease;
+      }
+      pre {
+        position: relative;
+        background: #000 !important;
+        padding: 15px;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 4px 10px;
+        font-size: 12px;
+        background: var(--hover);
+        color: var(--text);
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      pre:hover .copy-btn {
+        opacity: 1;
+      }
+      .copy-btn.copied {
+        color: #3fb950;
+        border-color: #3fb950;
+      }
+      .hljs-ln-numbers {
+        user-select: none;
+        text-align: right;
+        padding-right: 16px !important;
+        color: #4d5566;
+        border-right: 1px solid #30363d;
+      }
+      .hljs-ln-code {
+        padding-left: 16px !important;
+      }
+      img {
+        max-width: 100%;
+        border-radius: 8px;
+      }
+      #content table:not(.hljs-ln) {
+        width: 100%;
+        margin: 24px 0;
+        border-collapse: collapse;
+        border: 1px solid #30363d;
+        background: #11161d;
+      }
+      #content table:not(.hljs-ln) th,
+      #content table:not(.hljs-ln) td {
+        padding: 12px 14px;
+        border: 1px solid #30363d;
+        text-align: left;
+        vertical-align: top;
+      }
+      #content table:not(.hljs-ln) th {
+        background: #161b22;
+        color: #f0f6fc;
+      }
+      #content table:not(.hljs-ln) tr:nth-child(even) td {
+        background: #0f141b;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  <style type="text/css">.hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}</style><style id="MJX-VE-styles">:root {
+  --mjx-fg-red: 255, 0, 0;
+  --mjx-fg-green: 0, 255, 0;
+  --mjx-fg-blue: 0, 0, 255;
+  --mjx-fg-yellow: 255, 255, 0;
+  --mjx-fg-cyan: 0, 255, 255;
+  --mjx-fg-magenta: 255, 0, 255;
+  --mjx-fg-white: 255, 255, 255;
+  --mjx-fg-black: 0, 0, 0;
+  --mjx-bg-red: 255, 0, 0;
+  --mjx-bg-green: 0, 255, 0;
+  --mjx-bg-blue: 0, 0, 255;
+  --mjx-bg-yellow: 255, 255, 0;
+  --mjx-bg-cyan: 0, 255, 255;
+  --mjx-bg-magenta: 255, 0, 255;
+  --mjx-bg-white: 255, 255, 255;
+  --mjx-bg-black: 0, 0, 0;
+  --mjx-live-bg-color: white;
+  --mjx-live-shadow-color: #888;
+  --mjx-live-border-color: #CCCCCC;
+  --mjx-bg1-color: rgba(var(--mjx-bg-blue), var(--mjx-bg1-alpha));
+  --mjx-fg1-color: rgba(var(--mjx-fg-black), 1);
+  --mjx-bg2-color: rgba(var(--mjx-bg-red), 1);
+  --mjx-fg2-color: rgba(var(--mjx-fg-black), 1);
+  --mjx-bg1-alpha: 0.2;
+  --mjx-fg1-alpha: 1;
+  --mjx-bg2-alpha: 1;
+  --mjx-fg2-alpha: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --mjx-bg-blue: 132, 132, 255;
+      --mjx-bg-white: 0, 0, 0;
+      --mjx-bg-black: 255, 255, 255;
+      --mjx-fg-white: 0, 0, 0;
+      --mjx-fg-black: 255, 255, 255;
+      --mjx-live-bg-color: #222025;
+      --mjx-live-shadow-color: black;
+      --mjx-live-border-color: #7C7C7C;
+      --mjx-bg1-alpha: 0.3;
+      --mjx-fg1-alpha: 1;
+      --mjx-bg2-alpha: 1;
+      --mjx-fg2-alpha: 1;
+  }
+}
+
+.MJX_LiveRegion {
+  position: absolute;
+  top: 0;
+  display: none;
+  width: auto;
+  height: auto;
+  padding: 0;
+  opacity: 1;
+  z-index: 202;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: var(--mjx-live-bg-color);
+  box-shadow: 0px 5px 20px var(--mjx-live-shadow-color);
+  border: 2px solid var(--mjx-live-border-color);
+}
+
+.MJX_LiveRegion_Show {
+  display: block;
+}
+
+.MJX_LiveRegion > div {
+  color: var(--mjx-fg1-color);
+  background-color: var(--mjx-bg1-color);
+}
+
+mjx-container [data-sre-highlight-1]:not([data-mjx-collapsed], rect) {
+  color: var(--mjx-fg1-color) ! important;
+  fill: var(--mjx-fg1-color) ! important;
+}
+
+mjx-container:not([data-mjx-clone-container]) [data-sre-highlight-1]:not([data-sre-enclosed], rect) {
+  background-color: var(--mjx-bg1-color) ! important;
+}
+
+mjx-container rect[data-sre-highlight-1]:not([data-sre-enclosed]) {
+  fill: var(--mjx-bg1-color) ! important;
+}
+
+mjx-container [data-sre-highlight-2] {
+  color: var(--mjx-fg2-color) ! important;
+  background-color: var(--mjx-bg2-color) ! important;
+  fill: var(--mjx-fg2-color) ! important;
+}
+
+mjx-container rect[data-sre-highlight-2] {
+  fill: var(--mjx-bg2-color) ! important;
+}</style><style id="MJX-GE-styles">.MJX_HoverRegion {
+  display: block;
+  position: absolute;
+  width: max-content;
+  height: auto;
+  padding: 0;
+  opacity: 1;
+  z-index: 202;
+  margin: 0 auto;
+  background-color: white;
+  line-height: 0;
+  box-shadow: 0px 10px 20px #888;
+  border: 2px solid #CCCCCC;
+}
+
+.MJX_HoverRegion > div {
+  overflow: hidden;
+  color: var(--mjx-fg1-color);
+  background-color: var(--mjx-bg1-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .MJX_HoverRegion {
+    background-color: #222025;
+      box-shadow: 0px 5px 20px #000;
+      border: 1px solid #7C7C7C;
+  }
+}
+
+mjx-container[data-mjx-clone-container] {
+  padding: 2px ! important;
+}
+
+mjx-math > mjx-mlabeledtr {
+  display: inline-block;
+  margin-right: .5em ! important;
+}
+
+mjx-math > mjx-mtd {
+  float: right;
+}</style><style id="MJX-qE-styles">.MJX_ToolTip {
+  width: auto;
+  height: auto;
+  opacity: 1;
+  text-align: center;
+  border-radius: 4px;
+  padding: 0;
+  border-bottom: 1px dotted black;
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+  z-index: 202;
+}
+
+.MJX_ToolTip > div {
+  border-radius: inherit;
+  padding: 0 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .MJX_ToolTip {
+    background-color: #222025;
+      box-shadow: 0px 5px 20px #000;
+      border: 1px solid #7C7C7C;
+  }
+}</style><style id="MJX-Menu-styles">.CtxtMenu_Menu {
+  position: absolute;
+  background-color: white;
+  color: black;
+  width: auto;
+  padding: 5px 0px;
+  border: 1px solid #CCCCCC;
+  margin: 0;
+  cursor: default;
+  font: menu;
+  text-align: left;
+  text-indent: 0;
+  text-transform: none;
+  line-height: normal;
+  letter-spacing: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  float: none;
+  z-index: 1001;
+  border-radius: 5px;
+  box-shadow: 0px 10px 20px #808080;
+}
+.CtxtMenu_MenuItem {
+  padding: 1px 2em;
+  background: transparent;
+}
+.CtxtMenu_MenuArrow {
+  position: absolute;
+  right: 0.5em;
+  padding-top: 0.25em;
+  color: #666666;
+  font-family: null;
+  font-size: 0.75em;
+}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {
+  color: white;
+}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {
+  left: 0.5em;
+  right: auto;
+}
+.CtxtMenu_MenuCheck {
+  position: absolute;
+  left: 0.7em;
+  font-family: null;
+}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL {
+  right: 0.7em;
+  left: auto;
+}
+.CtxtMenu_MenuRadioCheck {
+  position: absolute;
+  left: 0.7em;
+}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {
+  right: 0.7em;
+  left: auto;
+}
+.CtxtMenu_MenuInputBox {
+  padding-left: 1em;
+  right: 0.5em;
+  color: #666666;
+  font-family: null;
+}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {
+  left: 0.1em;
+}
+.CtxtMenu_MenuComboBox {
+  left: 0.1em;
+  padding-bottom: 0.5em;
+}
+.CtxtMenu_MenuSlider {
+  left: 0.1em;
+}
+.CtxtMenu_SliderValue {
+  position: absolute;
+  right: 0.1em;
+  padding-top: 0.25em;
+  color: #333333;
+  font-size: 0.75em;
+}
+.CtxtMenu_MenuActive .CtxtMenu_SliderValue {
+  color: #DDDDDD;
+}
+.CtxtMenu_SliderBar {
+  outline: none;
+  background: #D3D3D3;
+}
+.CtxtMenu_MenuLabel {
+  padding: 1px 2em 3px 1.33em;
+  font-style: italic;
+}
+.CtxtMenu_MenuRule {
+  border-top: 1px solid #DDDDDD;
+  margin: 4px 3px;
+}
+.CtxtMenu_MenuDisabled {
+  color: #999;
+}
+.CtxtMenu_MenuActive {
+  background-color: #606872;
+  color: white;
+}
+.CtxtMenu_MenuDisabled:focus {
+  background-color: #E8E8E8;
+}
+.CtxtMenu_MenuLabel:focus {
+  background-color: #E8E8E8;
+}
+.CtxtMenu_ContextMenu:focus {
+  outline: none;
+}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {
+  outline: none;
+}
+.CtxtMenu_SelectionMenu {
+  position: relative;
+  float: left;
+  border-bottom: none;
+  box-shadow: none ! important;
+  border-radius: 0px !important;
+}
+.CtxtMenu_SelectionItem {
+  padding-right: 1em;
+}
+.CtxtMenu_Selection {
+  right: 40%;
+  width: 50%;
+}
+.CtxtMenu_SelectionBox {
+  padding: 0em;
+  max-height: 20em;
+  max-width: none;
+  background-color: #FFFFFF;
+}
+.CtxtMenu_SelectionDivider {
+  clear: both;
+  border-top: 2px solid #000000;
+}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {
+  top: -10px;
+  left: -10px;
+}
+@media (prefers-color-scheme: dark) /* menu */ {
+  .CtxtMenu_Menu {
+  color: #E0E0E0;
+  background-color: #242436;
+  box-shadow: 0px 10px 20px #000;
+  border: 1px solid #808080;
+}
+  .CtxtMenu_SliderValue {
+  color: #D0D0D0;
+}
+  .CtxtMenu_MenuDisabled:focus {
+  background-color: #383838;
+}
+  .CtxtMenu_MenuLabel:focus {
+  background-color: #585858;
+}
+  .CtxtMenu_MenuRule {
+  border-top: 1px solid #808080;
+}
+  .CtxtMenu_SelectionDivider {
+  border-top: 2px solid #808080;
+};
+}
+.CtxtMenu_MenuClose {
+  position: absolute;
+  cursor: pointer;
+  display: inline-block;
+  border: 2px solid #AAA;
+  border-radius: 18px;
+  font-family:  "Courier New", Courier;
+  font-size: 24px;
+  color: #F0F0F0;
+}
+.CtxtMenu_MenuClose span {
+  display: block;
+  background-color: #AAA;
+  border: 1.5px solid;
+  border-radius: 18px;
+  line-height: 0;
+  padding: 8px 0 6px;
+}
+.CtxtMenu_MenuClose:hover {
+  color: white !important;
+  border: 2px solid #CCC !important;
+}
+.CtxtMenu_MenuClose:hover span {
+  background-color: #CCC !important;
+}
+.CtxtMenu_MenuClose:hover:focus {
+  outline: none;
+}</style><style id="MJX-CHTML-styles">
+mjx-container[overflow="scroll"][display] {
+  overflow: auto clip;
+  min-width: initial !important;
+}
+
+mjx-container[overflow="truncate"][display] {
+  overflow: hidden clip;
+  min-width: initial !important;
+}
+
+mjx-container[display] {
+  display: block;
+  text-align: center;
+  justify-content: center;
+  margin: .7em 0;
+  padding: .3em 2px;
+}
+
+mjx-container[display][width="full"] {
+  display: flex;
+}
+
+mjx-container[justify="left"] {
+  text-align: left;
+  justify-content: left;
+}
+
+mjx-container[justify="right"] {
+  text-align: right;
+  justify-content: right;
+}
+
+mjx-container[jax="CHTML"] {
+  white-space: nowrap;
+}
+
+mjx-mo > mjx-c, mjx-mi > mjx-c, mjx-mn > mjx-c, mjx-ms > mjx-c, mjx-mtext > mjx-c {
+  clip-path: padding-box polygon(-1em -2px, calc(100% + 1em) -2px, calc(100% + 1em) calc(100% + 2px), -1em calc(100% + 2px));
+}
+
+mjx-stretchy-h {
+  clip-path: padding-box polygon(0 -2px, 100% -2px, 100% calc(100% + 2px), 0 calc(100% + 2px));
+}
+
+mjx-stretchy-v {
+  clip-path: padding-box polygon(-2px 0, calc(100% + 2px) 0, calc(100% + 2px) 100%, -2px 100%);
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > mjx-cell, mjx-row > mjx-base, mjx-row > mjx-under, mjx-row > mjx-over, mjx-row > mjx-den {
+  display: table-cell;
+}
+
+mjx-container [inline-breaks] {
+  display: inline;
+}
+
+mjx-container .mjx-selected {
+  outline: 2px solid black;
+}
+
+@media (prefers-color-scheme: dark) {
+  mjx-container .mjx-selected {
+    outline: 2px solid #C8C8C8;
+  }
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+mjx-container[has-speech="true"] {
+  position: relative;
+  cursor: default;
+}
+
+mjx-speech {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+mjx-speech:focus {
+  outline: none;
+}
+
+mjx-container a[data-mjx-href] {
+  color: LinkText;
+  cursor: pointer;
+}
+
+mjx-container a[data-mjx-href].mjx-visited {
+  color: VisitedText;
+}
+
+mjx-container > mjx-help {
+  display: none;
+  position: absolute;
+  top: -.3em;
+  right: -.5em;
+  width: .6em;
+  height: .6em;
+  cursor: pointer;
+}
+
+mjx-container[display="true"] > mjx-help {
+  position: sticky;
+  inset: -100% 0 100% 0;
+  margin: -.3em -.5em 0 -.1em;
+  right: 0;
+  top: initial;
+}
+
+mjx-help > svg {
+  stroke: black;
+  width: 100%;
+  height: 100%;
+}
+
+mjx-help > svg > circle {
+  stroke-width: 1.5px;
+  cx: 9px;
+  cy: 9px;
+  r: 9px;
+  fill: white;
+}
+
+mjx-help > svg > circle:nth-child(2) {
+  fill: var(--mjx-bg1-color);
+  r: 7px;
+}
+
+mjx-help > svg > line {
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+}
+
+mjx-help:hover > svg > circle:nth-child(2) {
+  fill: white;
+}
+
+mjx-container.mjx-explorer-active > mjx-help {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: dark) /* explorer */ {
+  mjx-help > svg {
+    stroke: #E0E0E0;
+  }
+  mjx-help > svg > circle {
+    fill: #404040;
+  }
+  mjx-help > svg > circle:nth-child(2) {
+    fill: rgba(132, 132, 255, .3);
+  }
+  mjx-help:hover > svg > circle:nth-child(2) {
+    stroke: #AAAAAA;
+      fill: #404040;
+  }
+}
+
+mjx-container[jax="CHTML"] > mjx-math.NCM-N[breakable] > * {
+  font-family: MJX-NCM-ZERO, MJX-NCM-N;
+}
+
+.NCM-N {
+  font-family: MJX-NCM-ZERO, MJX-NCM-N;
+}
+
+.NCM-B {
+  font-family: MJX-NCM-ZERO, MJX-NCM-B;
+}
+
+.NCM-I {
+  font-family: MJX-NCM-ZERO, MJX-NCM-I;
+}
+
+.NCM-BI {
+  font-family: MJX-NCM-ZERO, MJX-NCM-BI;
+}
+
+.NCM-DS {
+  font-family: MJX-NCM-ZERO, MJX-NCM-DS;
+}
+
+.NCM-F {
+  font-family: MJX-NCM-ZERO, MJX-NCM-F;
+}
+
+.NCM-FB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-FB;
+}
+
+.NCM-SS {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SS;
+}
+
+.NCM-SSB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SSB;
+}
+
+.NCM-SSI {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SSI;
+}
+
+.NCM-SSBI {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SSBI;
+}
+
+.NCM-M {
+  font-family: MJX-NCM-ZERO, MJX-NCM-M;
+}
+
+.NCM-SO {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SO;
+}
+
+.NCM-LO {
+  font-family: MJX-NCM-ZERO, MJX-NCM-LO;
+}
+
+.NCM-S3 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S3;
+}
+
+.NCM-S4 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S4;
+}
+
+.NCM-S5 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S5;
+}
+
+.NCM-S6 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S6;
+}
+
+.NCM-S7 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S7;
+}
+
+.NCM-MI {
+  font-family: MJX-NCM-ZERO, MJX-NCM-MI;
+}
+
+.NCM-C {
+  font-family: MJX-NCM-ZERO, MJX-NCM-C;
+}
+
+.NCM-CB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-CB;
+}
+
+.NCM-OS {
+  font-family: MJX-NCM-ZERO, MJX-NCM-OS;
+}
+
+.NCM-OB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-OB;
+}
+
+.NCM-V {
+  font-family: MJX-NCM-ZERO, MJX-NCM-V;
+}
+
+.NCM-LT {
+  font-family: MJX-NCM-ZERO, MJX-NCM-LT;
+}
+
+.NCM-RB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-RB;
+}
+
+.NCM-EM {
+  font-family: MJX-NCM-ZERO, MJX-NCM-EM;
+}
+
+.NCM-B-a {
+  font-family: MJX-NCM-ZERO, MJX-NCM-B-a;
+}
+
+.NCM-U {
+  font-family: MJX-NCM-ZERO, MJX-NCM-U;
+}
+
+.NCM-U-a {
+  font-family: MJX-NCM-ZERO, MJX-NCM-U-a;
+}
+
+.NCM-S {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S;
+}
+
+.NCM-SB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SB;
+}
+
+@font-face /* MJX-NCM-ZERO */ {
+  font-family: MJX-NCM-ZERO;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-zero.woff2") format("woff2");
+}
+
+@font-face /* MJX-BRK */ {
+  font-family: MJX-BRK;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-brk.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-N */ {
+  font-family: MJX-NCM-N;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-n.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-B */ {
+  font-family: MJX-NCM-B;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-b.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-I */ {
+  font-family: MJX-NCM-I;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-i.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-BI */ {
+  font-family: MJX-NCM-BI;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-bi.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-DS */ {
+  font-family: MJX-NCM-DS;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ds.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-F */ {
+  font-family: MJX-NCM-F;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-f.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-FB */ {
+  font-family: MJX-NCM-FB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-fb.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SS */ {
+  font-family: MJX-NCM-SS;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ss.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SSB */ {
+  font-family: MJX-NCM-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ssb.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SSI */ {
+  font-family: MJX-NCM-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ssi.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SSBI */ {
+  font-family: MJX-NCM-SSBI;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ssbi.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-M */ {
+  font-family: MJX-NCM-M;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-m.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SO */ {
+  font-family: MJX-NCM-SO;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-so.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-LO */ {
+  font-family: MJX-NCM-LO;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-lo.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S3 */ {
+  font-family: MJX-NCM-S3;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s3.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S4 */ {
+  font-family: MJX-NCM-S4;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s4.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S5 */ {
+  font-family: MJX-NCM-S5;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s5.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S6 */ {
+  font-family: MJX-NCM-S6;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s6.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S7 */ {
+  font-family: MJX-NCM-S7;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s7.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-MI */ {
+  font-family: MJX-NCM-MI;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-mi.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-C */ {
+  font-family: MJX-NCM-C;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-c.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-CB */ {
+  font-family: MJX-NCM-CB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-cb.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-OS */ {
+  font-family: MJX-NCM-OS;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-os.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-OB */ {
+  font-family: MJX-NCM-OB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ob.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-V */ {
+  font-family: MJX-NCM-V;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-v.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-LT */ {
+  font-family: MJX-NCM-LT;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-lt.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-RB */ {
+  font-family: MJX-NCM-RB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-rb.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-EM */ {
+  font-family: MJX-NCM-EM;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-em.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-B-a */ {
+  font-family: MJX-NCM-B-a;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-b-a.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-U */ {
+  font-family: MJX-NCM-U;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-u.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-U-a */ {
+  font-family: MJX-NCM-U-a;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-u-a.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S */ {
+  font-family: MJX-NCM-S;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SB */ {
+  font-family: MJX-NCM-SB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-sb.woff2") format("woff2");
+}
+</style></head>
+  <body>
+    <div class="hamburger-container">
+        <input type="checkbox" id="global-menu-toggle" class="menu-toggle">
+        <label for="global-menu-toggle" class="menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <label for="global-menu-toggle" class="menu-overlay"></label>
+        <nav class="side-menu">
+            <a href="index.html" class="custom-logo">
+                <div class="logo-icon">
+                    <span class="bracket">&lt;</span>
+                    <span class="slash">/</span>
+                    <span class="bracket">&gt;</span>
+                </div>
+                <div class="logo-text">Prog<span>III</span></div>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#temas">Temas</a>
+                <a href="https://frlr.cvg.utn.edu.ar/" target="_blank">Campus</a>
+            </div>
+        </nav>
+    </div>
+    <div id="sidebar">
+      <h3 style="padding: 20px; color: var(--accent)">Índice</h3>
+      <div class="menu-item" data-target="section-0">Elementos HTML de bloque y en linea</div>
+<div class="menu-item" data-target="section-1">Introducción</div>
+<div class="menu-item" data-target="section-2">Elementos de bloque</div>
+<div class="menu-item" data-target="section-3">Elementos en linea</div>
+<div class="menu-item" data-target="section-4">Comparación entre bloque y linea</div>
+<div class="menu-item" data-target="section-5">Ejemplo comparativo</div>
+<div class="menu-item" data-target="section-6">El elemento div</div>
+<div class="menu-item" data-target="section-7">El elemento span</div>
+<div class="menu-item" data-target="section-8">Elementos de agrupación</div>
+<div class="menu-item" data-target="section-9">Relación con CSS y la propiedad display</div>
+<div class="menu-item" data-target="section-10">Una aclaración importante</div>
+<div class="menu-item" data-target="section-11">Errores conceptuales frecuentes</div>
+<div class="menu-item" data-target="section-12">Síntesis</div>
+
+    </div>
+    <div id="content"><div id="section-0" class="content-section" style="display: block;"><h1 id="elementos-html-de-bloque-y-en-linea">Elementos HTML de bloque y en linea</h1>
+</div>
+<div id="section-1" class="content-section" style="display: none;"><h2 id="introduccion">Introducción</h2>
+<p>En HTML, no todos los elementos se comportan de la misma manera cuando el
+navegador los muestra en pantalla. Algunos elementos se distribuyen ocupando una
+nueva linea completa, mientras que otros se ubican uno al lado del otro dentro
+de la misma linea de texto.</p>
+<p>Esta diferencia es fundamental para comprender como se construye la estructura
+visual de una pagina web y como CSS puede modificar ese comportamiento.</p>
+<p>De forma simplificada, muchos elementos HTML se presentan por defecto como:</p>
+<ul>
+<li><strong>Elementos de bloque</strong></li>
+<li><strong>Elementos en linea</strong></li>
+</ul>
+<p>Mas adelante veremos que este comportamiento puede modificarse con la propiedad
+CSS <code>display</code>, pero primero conviene entender el comportamiento predeterminado
+de cada tipo.</p>
+<p><img alt="bloque-linea" src="./Elementos HTML de bloque y en linea_files/1-bloque-linea.png" width="70%"></p>
+</div>
+<div id="section-2" class="content-section" style="display: none;"><h2 id="elementos-de-bloque">Elementos de bloque</h2>
+<p>Un <strong>elemento de bloque</strong> suele tener las siguientes características:</p>
+<ul>
+<li>comienza en una nueva linea</li>
+<li>ocupa, por defecto, todo el ancho disponible de su contenedor</li>
+<li>se apila verticalmente con respecto a otros elementos de bloque</li>
+<li>suele utilizarse para organizar grandes secciones del contenido</li>
+</ul>
+<p>Algunos ejemplos frecuentes de elementos de bloque son:</p>
+<p><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code> a <code>&lt;h6&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;header&gt;</code>,
+<code>&lt;footer&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;pre&gt;</code></p>
+<p>Por ejemplo, si se escriben varios párrafos seguidos, cada uno aparecerá debajo
+del anterior:</p>
+<pre><code class="language-html hljs language-xml" data-highlighted="yes"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="1"><div class="hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="1"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Primer párrafo<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="2"><div class="hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="2"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Segundo párrafo<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="3"><div class="hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="3"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Tercer párrafo<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr></tbody></table></code><button class="copy-btn">Copiar</button></pre>
+<p>Aunque el contenido de cada párrafo sea corto, cada <code>&lt;p&gt;</code> se mostrará en una
+línea nueva porque su comportamiento predeterminado es de bloque.</p>
+</div>
+<div id="section-3" class="content-section" style="display: none;"><h2 id="elementos-en-linea">Elementos en linea</h2>
+<p>Un <strong>elemento en linea</strong> se caracteriza por:</p>
+<ul>
+<li>no comenzar en una nueva linea</li>
+<li>ocupar solo el ancho necesario para mostrar su contenido</li>
+<li>convivir con otros elementos dentro de la misma linea</li>
+<li>usarse normalmente para marcar o modificar fragmentos pequeños de contenido</li>
+</ul>
+<p>Algunos ejemplos comunes de elementos en linea son:</p>
+<p><code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;small&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;label&gt;</code></p>
+<p>Por ejemplo:</p>
+<pre><code class="language-html hljs language-xml" data-highlighted="yes"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="1"><div class="hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="1"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="2"><div class="hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="2">  Este texto contiene una <span class="hljs-tag">&lt;<span class="hljs-name">strong</span>&gt;</span>parte importante<span class="hljs-tag">&lt;/<span class="hljs-name">strong</span>&gt;</span> y un</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="3"><div class="hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="3">  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>enlace<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>.</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="4"><div class="hljs-ln-n" data-line-number="4"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="4"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr></tbody></table></code><button class="copy-btn">Copiar</button></pre>
+<p>En este caso, tanto <code>&lt;strong&gt;</code> como <code>&lt;a&gt;</code> permanecen dentro de la misma linea
+del párrafo, porque son elementos en linea.</p>
+</div>
+<div id="section-4" class="content-section" style="display: none;"><h2 id="comparacion-entre-bloque-y-linea">Comparación entre bloque y linea</h2>
+<p>La diferencia principal entre ambos tipos no esta en su significado semántico,
+sino en <strong>como participan en el flujo normal del documento</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Tipo de elemento</th>
+<th>Comienza en nueva linea</th>
+<th>Ocupa todo el ancho disponible</th>
+<th>Uso habitual</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bloque</td>
+<td>Si</td>
+<td>Si, por defecto</td>
+<td>Estructurar secciones o grupos grandes</td>
+</tr>
+<tr>
+<td>En linea</td>
+<td>No</td>
+<td>No</td>
+<td>Marcar o estilizar partes de un texto</td>
+</tr>
+</tbody>
+</table>
+<p>Es importante notar que "de bloque" y "en linea" describen el <strong>comportamiento
+visual inicial</strong>, no la importancia del contenido.</p>
+</div>
+<div id="section-5" class="content-section" style="display: none;"><h2 id="ejemplo-comparativo">Ejemplo comparativo</h2>
+<pre><code class="language-html hljs language-xml" data-highlighted="yes"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="1"><div class="hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="1"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Titulo principal<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="2"><div class="hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="2"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="3"><div class="hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="3">  Este es un párrafo con una <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>palabra destacada<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> y un</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="4"><div class="hljs-ln-n" data-line-number="4"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="4">  <span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#"</span>&gt;</span>enlace<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span>.</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="5"><div class="hljs-ln-n" data-line-number="5"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="5"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="6"><div class="hljs-ln-n" data-line-number="6"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="6"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Otro párrafo.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr></tbody></table></code><button class="copy-btn">Copiar</button></pre>
+<p>En este ejemplo:</p>
+<ul>
+<li><code>&lt;h1&gt;</code> es de bloque, por lo tanto aparece en su propia linea</li>
+<li>cada <code>&lt;p&gt;</code> también es de bloque</li>
+<li><code>&lt;span&gt;</code> y <code>&lt;a&gt;</code> son elementos en linea, por eso quedan dentro del texto del
+  párrafo</li>
+</ul>
+</div>
+<div id="section-6" class="content-section" style="display: none;"><h2 id="el-elemento-div">El elemento <code>div</code></h2>
+<p>El elemento <code>&lt;div&gt;</code> es uno de los contenedores más utilizados en HTML.</p>
+<p>Por defecto, <code>&lt;div&gt;</code> es un <strong>elemento de bloque</strong>, por lo que resulta útil para:</p>
+<ul>
+<li>agrupar contenido relacionado</li>
+<li>dividir una página en secciones</li>
+<li>aplicar estilos CSS a un conjunto de elementos</li>
+<li>organizar la estructura de una interfaz</li>
+</ul>
+<p><code>&lt;div&gt;</code> no aporta un significado semántico especial. Es un contenedor
+<strong>genérico</strong>. Por eso, se lo usa cuando no existe un elemento semántico más
+adecuado, como <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code> o <code>&lt;header&gt;</code>.</p>
+<p>Ejemplo:</p>
+<pre><code class="language-html hljs language-xml" data-highlighted="yes"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="1"><div class="hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="1"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"background-color: black; color: white; padding: 20px"</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="2"><div class="hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="2">  <span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Londres<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="3"><div class="hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="3">  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="4"><div class="hljs-ln-n" data-line-number="4"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="4">    Londres es la capital de Inglaterra. Es la ciudad mas poblada del Reino</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="5"><div class="hljs-ln-n" data-line-number="5"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="5">    Unido, con un area metropolitana de mas de 13 millones de habitantes.</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="6"><div class="hljs-ln-n" data-line-number="6"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="6">  <span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="7"><div class="hljs-ln-n" data-line-number="7"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="7"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></td></tr></tbody></table></code><button class="copy-btn">Copiar</button></pre>
+<p>En este caso, el <code>&lt;div&gt;</code> funciona como una caja que agrupa un titulo y un
+párrafo para aplicarles una misma presentación visual.</p>
+</div>
+<div id="section-7" class="content-section" style="display: none;"><h2 id="el-elemento-span">El elemento <code>span</code></h2>
+<p>El elemento <code>&lt;span&gt;</code> es el equivalente en linea de <code>&lt;div&gt;</code>.</p>
+<p>Por defecto, <code>&lt;span&gt;</code> es un <strong>elemento en linea</strong>. Se lo utiliza para:</p>
+<ul>
+<li>agrupar una parte del texto</li>
+<li>aplicar estilos a palabras o fragmentos concretos</li>
+<li>agregar clases o identificadores a contenido pequeño</li>
+</ul>
+<p>Tampoco tiene significado semántico propio: es un contenedor genérico, pero en
+linea.</p>
+<p>Ejemplo:</p>
+<pre><code class="language-html hljs language-xml" data-highlighted="yes"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Mi encabezado <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"color: red"</span>&gt;</span>importante<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span>
+</code><button class="copy-btn">Copiar</button></pre>
+<p>En este caso, solo la palabra incluida dentro de <code>&lt;span&gt;</code> cambiara de color, sin
+romper la linea del encabezado.</p>
+</div>
+<div id="section-8" class="content-section" style="display: none;"><h2 id="elementos-de-agrupacion">Elementos de agrupación</h2>
+<p>En términos prácticos, <code>&lt;div&gt;</code> y <code>&lt;span&gt;</code> suelen considerarse <strong>elementos de
+agrupación</strong> porque permiten reunir contenido para manipularlo con CSS o con
+JavaScript.</p>
+<ul>
+<li><code>&lt;div&gt;</code> agrupa contenido a nivel de bloque</li>
+<li><code>&lt;span&gt;</code> agrupa contenido a nivel de línea</li>
+</ul>
+<p>Por ejemplo:</p>
+<pre><code class="language-html hljs language-xml" data-highlighted="yes"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="1"><div class="hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="1"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="2"><div class="hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="2">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"encabezado"</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="3"><div class="hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="3">    <span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>Titulo de pagina<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="4"><div class="hljs-ln-n" data-line-number="4"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="4">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="5"><div class="hljs-ln-n" data-line-number="5"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="5"> </td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="6"><div class="hljs-ln-n" data-line-number="6"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="6">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"contenido"</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="7"><div class="hljs-ln-n" data-line-number="7"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="7">    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Contenido principal<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="8"><div class="hljs-ln-n" data-line-number="8"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="8">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="9"><div class="hljs-ln-n" data-line-number="9"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="9"> </td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="10"><div class="hljs-ln-n" data-line-number="10"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="10">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"barra-lateral"</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="11"><div class="hljs-ln-n" data-line-number="11"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="11">    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Algo <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"resaltado"</span>&gt;</span>resaltado<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span> en la barra lateral<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="12"><div class="hljs-ln-n" data-line-number="12"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="12">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="13"><div class="hljs-ln-n" data-line-number="13"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="13"> </td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="14"><div class="hljs-ln-n" data-line-number="14"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="14">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"pie"</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="15"><div class="hljs-ln-n" data-line-number="15"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="15">    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Derecho de autor<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="16"><div class="hljs-ln-n" data-line-number="16"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="16">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="17"><div class="hljs-ln-n" data-line-number="17"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="17"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></td></tr></tbody></table></code><button class="copy-btn">Copiar</button></pre>
+<p>Aquí, los distintos <code>&lt;div&gt;</code> separan grandes zonas de la pagina, mientras que
+<code>&lt;span&gt;</code> se utiliza para marcar una parte puntual del texto.</p>
+</div>
+<div id="section-9" class="content-section" style="display: none;"><h2 id="relacion-con-css-y-la-propiedad-display">Relación con CSS y la propiedad <code>display</code></h2>
+<p>Aunque un elemento tenga un comportamiento predeterminado, CSS puede modificarlo
+mediante la propiedad <code>display</code>.</p>
+<p>Por ejemplo:</p>
+<pre><code class="language-css hljs" data-highlighted="yes"><table class="hljs-ln"><tbody><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="1"><div class="hljs-ln-n" data-line-number="1"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="1"><span class="hljs-selector-tag">span</span> {</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="2"><div class="hljs-ln-n" data-line-number="2"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="2">  <span class="hljs-attribute">display</span>: block;</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="3"><div class="hljs-ln-n" data-line-number="3"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="3">}</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="4"><div class="hljs-ln-n" data-line-number="4"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="4"> </td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="5"><div class="hljs-ln-n" data-line-number="5"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="5"><span class="hljs-selector-tag">div</span> {</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="6"><div class="hljs-ln-n" data-line-number="6"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="6">  <span class="hljs-attribute">display</span>: inline;</td></tr><tr><td class="hljs-ln-line hljs-ln-numbers" data-line-number="7"><div class="hljs-ln-n" data-line-number="7"></div></td><td class="hljs-ln-line hljs-ln-code" data-line-number="7">}</td></tr></tbody></table></code><button class="copy-btn">Copiar</button></pre>
+<p>Con esas reglas:</p>
+<ul>
+<li>un <code>&lt;span&gt;</code> pasaría a comportarse como un elemento de bloque</li>
+<li>un <code>&lt;div&gt;</code> pasaría a comportarse como un elemento en linea</li>
+</ul>
+<p>Esto demuestra que el comportamiento visual puede cambiar, aunque el elemento
+HTML siga siendo el mismo.</p>
+<p>Sin embargo, cambiar <code>display</code> <strong>no modifica el significado semántico</strong> del
+elemento. Un <code>&lt;div&gt;</code> sigue siendo un contenedor genérico, aunque se vea en
+línea, y un <code>&lt;span&gt;</code> sigue siendo un contenedor genérico, aunque se muestre como
+bloque.</p>
+</div>
+<div id="section-10" class="content-section" style="display: none;"><h2 id="una-aclaracion-importante">Una aclaración importante</h2>
+<p>En los cursos iniciales suele hablarse de "elementos de bloque" y "elementos en
+linea" como si fueran categorías rígidas. Esa simplificación es útil para
+aprender, pero en la práctica hay más posibilidades.</p>
+<p>CSS ofrece otros valores de <code>display</code>, por ejemplo:</p>
+<ul>
+<li><code>inline-block</code></li>
+<li><code>flex</code></li>
+<li><code>grid</code></li>
+<li><code>none</code></li>
+</ul>
+<p>Por eso, conviene entender esta clasificación como un <strong>punto de partida</strong> para
+comprender el flujo del documento y no como una lista cerrada de comportamientos
+posibles.</p>
+</div>
+<div id="section-11" class="content-section" style="display: none;"><h2 id="errores-conceptuales-frecuentes">Errores conceptuales frecuentes</h2>
+<ol>
+<li>Pensar que un elemento "de bloque" siempre ocupa toda la pantalla. En
+   realidad, ocupa todo el ancho disponible dentro de su contenedor.</li>
+<li>Creer que un elemento en linea no puede recibir estilos. Si puede recibirlos,
+   aunque ciertas propiedades no se comportan igual que en los elementos de
+   bloque.</li>
+<li>Confundir comportamiento visual con significado semántico. Una cosa es como
+   se muestra un elemento y otra distinta es que representa dentro del
+   documento.</li>
+<li>Usar <code>&lt;div&gt;</code> para todo. En HTML moderno conviene preferir elementos
+   semánticos cuando existen opciones más expresivas.</li>
+</ol>
+</div>
+<div id="section-12" class="content-section" style="display: none;"><h2 id="sintesis">Síntesis</h2>
+<p>Los elementos de bloque y los elementos en linea representan dos formas basicas
+de organizar el contenido en HTML.</p>
+<ul>
+<li>los elementos de bloque estructuran secciones más amplias del documento</li>
+<li>los elementos en línea trabajan sobre fragmentos pequeños de contenido</li>
+<li><code>&lt;div&gt;</code> y <code>&lt;span&gt;</code> son contenedores genéricos muy usados</li>
+<li>CSS puede alterar el comportamiento visual mediante <code>display</code></li>
+</ul>
+<p>Comprender esta diferencia permite escribir HTML más claro y preparar el terreno
+para temas posteriores, como el modelo de caja, el posicionamiento y los
+sistemas de distribución en CSS.</p></div>
+</div>
+
+    <script src="./Elementos HTML de bloque y en linea_files/highlight.min.js.descarga"></script>
+    <script src="./Elementos HTML de bloque y en linea_files/highlightjs-line-numbers.min.js.descarga"></script>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: false, theme: "dark" });
+
+      async function renderMermaid() {
+        const nodes = document.querySelectorAll(
+          '.content-section[style*="block"] pre.mermaid:not([data-processed])',
+        );
+        if (nodes.length) await mermaid.run({ nodes });
+      }
+
+      window.__mermaidRender = renderMermaid;
+      renderMermaid();
+    </script>
+    <script>
+      MathJax = {
+        tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
+        options: {
+          skipHtmlTags: [
+            "script",
+            "noscript",
+            "style",
+            "textarea",
+            "pre",
+            "code",
+          ],
+        },
+      };
+    </script>
+    <script src="./Elementos HTML de bloque y en linea_files/tex-mml-chtml.js.descarga"></script>
+    <script>
+      function addCopyButtons() {
+        document.querySelectorAll("pre code").forEach((code) => {
+          const btn = document.createElement("button");
+          btn.className = "copy-btn";
+          btn.textContent = "Copiar";
+          btn.addEventListener("click", () => {
+            navigator.clipboard
+              .writeText(
+                [...code.querySelectorAll(".hljs-ln-code")]
+                  .map((td) => td.innerText)
+                  .join("\n"),
+              )
+              .then(() => {
+                btn.textContent = "Copiado";
+                btn.classList.add("copied");
+                setTimeout(() => {
+                  btn.textContent = "Copiar";
+                  btn.classList.remove("copied");
+                }, 2000);
+              });
+          });
+          code.parentElement.appendChild(btn);
+        });
+      }
+
+      function showSection(id) {
+        document
+          .querySelectorAll(".content-section")
+          .forEach((s) => (s.style.display = "none"));
+        document.getElementById(id).style.display = "block";
+        window.scrollTo(0, 0);
+        hljs.highlightAll();
+        hljs.initLineNumbersOnLoad();
+        addCopyButtons();
+        MathJax.typesetPromise();
+        if (window.__mermaidRender) window.__mermaidRender();
+      }
+
+      document.querySelectorAll(".menu-item").forEach((item) => {
+        item.addEventListener("click", () => showSection(item.dataset.target));
+      });
+
+      // Mostrar la primera sección por defecto
+      const first = document.querySelector(".content-section");
+      if (first) first.style.display = "block";
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad();
+      addCopyButtons();
+    </script>
+  
+
+</body></html>

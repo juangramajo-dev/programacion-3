@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<!-- saved from url=(0090)https://frlr.cvg.utn.edu.ar/pluginfile.php/59295/mod_resource/content/2/index.html?embed=1 -->
+<html lang="es" data-qb-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>Introducción a Git</title>
+    <link rel="stylesheet" href="master.css">
+    <link rel="stylesheet" href="./Introducción a Git_files/tokyo-night-dark.min.css">
+    <style>
+      :root {
+        --bg: #0d1117;
+        --sidebar: #161b22;
+        --text: #c9d1d9;
+        --accent: #58a6ff;
+        --hover: #21262d;
+      }
+      body {
+        margin: 0;
+        display: flex;
+        font-family: "Segoe UI", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+      }
+      #sidebar {
+        width: 280px;
+        height: 100vh;
+        background: var(--sidebar);
+        border-right: 1px solid #30363d;
+        overflow-y: auto;
+        position: fixed;
+      }
+      #content {
+        margin-left: 280px;
+        padding: 40px;
+        width: 100%;
+        max-width: 900px;
+      }
+      .menu-item {
+        padding: 12px 20px;
+        cursor: pointer;
+        border-bottom: 1px solid #30363d;
+        transition: 0.2s;
+      }
+      .menu-item:hover {
+        background: var(--hover);
+        color: var(--accent);
+      }
+      .content-section {
+        animation: fadeIn 0.3s ease;
+      }
+      pre {
+        position: relative;
+        background: #000 !important;
+        padding: 15px;
+        border-radius: 8px;
+        overflow-x: auto;
+      }
+      .copy-btn {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        padding: 4px 10px;
+        font-size: 12px;
+        background: var(--hover);
+        color: var(--text);
+        border: 1px solid #30363d;
+        border-radius: 6px;
+        cursor: pointer;
+        opacity: 0;
+        transition: opacity 0.2s;
+      }
+      pre:hover .copy-btn {
+        opacity: 1;
+      }
+      .copy-btn.copied {
+        color: #3fb950;
+        border-color: #3fb950;
+      }
+      .hljs-ln-numbers {
+        user-select: none;
+        text-align: right;
+        padding-right: 16px !important;
+        color: #4d5566;
+        border-right: 1px solid #30363d;
+      }
+      .hljs-ln-code {
+        padding-left: 16px !important;
+      }
+      img {
+        max-width: 100%;
+        border-radius: 8px;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  <style type="text/css">.hljs-ln{border-collapse:collapse}.hljs-ln td{padding:0}.hljs-ln-n:before{content:attr(data-line-number)}</style><style id="MJX-VE-styles">:root {
+  --mjx-fg-red: 255, 0, 0;
+  --mjx-fg-green: 0, 255, 0;
+  --mjx-fg-blue: 0, 0, 255;
+  --mjx-fg-yellow: 255, 255, 0;
+  --mjx-fg-cyan: 0, 255, 255;
+  --mjx-fg-magenta: 255, 0, 255;
+  --mjx-fg-white: 255, 255, 255;
+  --mjx-fg-black: 0, 0, 0;
+  --mjx-bg-red: 255, 0, 0;
+  --mjx-bg-green: 0, 255, 0;
+  --mjx-bg-blue: 0, 0, 255;
+  --mjx-bg-yellow: 255, 255, 0;
+  --mjx-bg-cyan: 0, 255, 255;
+  --mjx-bg-magenta: 255, 0, 255;
+  --mjx-bg-white: 255, 255, 255;
+  --mjx-bg-black: 0, 0, 0;
+  --mjx-live-bg-color: white;
+  --mjx-live-shadow-color: #888;
+  --mjx-live-border-color: #CCCCCC;
+  --mjx-bg1-color: rgba(var(--mjx-bg-blue), var(--mjx-bg1-alpha));
+  --mjx-fg1-color: rgba(var(--mjx-fg-black), 1);
+  --mjx-bg2-color: rgba(var(--mjx-bg-red), 1);
+  --mjx-fg2-color: rgba(var(--mjx-fg-black), 1);
+  --mjx-bg1-alpha: 0.2;
+  --mjx-fg1-alpha: 1;
+  --mjx-bg2-alpha: 1;
+  --mjx-fg2-alpha: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --mjx-bg-blue: 132, 132, 255;
+      --mjx-bg-white: 0, 0, 0;
+      --mjx-bg-black: 255, 255, 255;
+      --mjx-fg-white: 0, 0, 0;
+      --mjx-fg-black: 255, 255, 255;
+      --mjx-live-bg-color: #222025;
+      --mjx-live-shadow-color: black;
+      --mjx-live-border-color: #7C7C7C;
+      --mjx-bg1-alpha: 0.3;
+      --mjx-fg1-alpha: 1;
+      --mjx-bg2-alpha: 1;
+      --mjx-fg2-alpha: 1;
+  }
+}
+
+.MJX_LiveRegion {
+  position: absolute;
+  top: 0;
+  display: none;
+  width: auto;
+  height: auto;
+  padding: 0;
+  opacity: 1;
+  z-index: 202;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  background-color: var(--mjx-live-bg-color);
+  box-shadow: 0px 5px 20px var(--mjx-live-shadow-color);
+  border: 2px solid var(--mjx-live-border-color);
+}
+
+.MJX_LiveRegion_Show {
+  display: block;
+}
+
+.MJX_LiveRegion > div {
+  color: var(--mjx-fg1-color);
+  background-color: var(--mjx-bg1-color);
+}
+
+mjx-container [data-sre-highlight-1]:not([data-mjx-collapsed], rect) {
+  color: var(--mjx-fg1-color) ! important;
+  fill: var(--mjx-fg1-color) ! important;
+}
+
+mjx-container:not([data-mjx-clone-container]) [data-sre-highlight-1]:not([data-sre-enclosed], rect) {
+  background-color: var(--mjx-bg1-color) ! important;
+}
+
+mjx-container rect[data-sre-highlight-1]:not([data-sre-enclosed]) {
+  fill: var(--mjx-bg1-color) ! important;
+}
+
+mjx-container [data-sre-highlight-2] {
+  color: var(--mjx-fg2-color) ! important;
+  background-color: var(--mjx-bg2-color) ! important;
+  fill: var(--mjx-fg2-color) ! important;
+}
+
+mjx-container rect[data-sre-highlight-2] {
+  fill: var(--mjx-bg2-color) ! important;
+}</style><style id="MJX-GE-styles">.MJX_HoverRegion {
+  display: block;
+  position: absolute;
+  width: max-content;
+  height: auto;
+  padding: 0;
+  opacity: 1;
+  z-index: 202;
+  margin: 0 auto;
+  background-color: white;
+  line-height: 0;
+  box-shadow: 0px 10px 20px #888;
+  border: 2px solid #CCCCCC;
+}
+
+.MJX_HoverRegion > div {
+  overflow: hidden;
+  color: var(--mjx-fg1-color);
+  background-color: var(--mjx-bg1-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  .MJX_HoverRegion {
+    background-color: #222025;
+      box-shadow: 0px 5px 20px #000;
+      border: 1px solid #7C7C7C;
+  }
+}
+
+mjx-container[data-mjx-clone-container] {
+  padding: 2px ! important;
+}
+
+mjx-math > mjx-mlabeledtr {
+  display: inline-block;
+  margin-right: .5em ! important;
+}
+
+mjx-math > mjx-mtd {
+  float: right;
+}</style><style id="MJX-qE-styles">.MJX_ToolTip {
+  width: auto;
+  height: auto;
+  opacity: 1;
+  text-align: center;
+  border-radius: 4px;
+  padding: 0;
+  border-bottom: 1px dotted black;
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+  z-index: 202;
+}
+
+.MJX_ToolTip > div {
+  border-radius: inherit;
+  padding: 0 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .MJX_ToolTip {
+    background-color: #222025;
+      box-shadow: 0px 5px 20px #000;
+      border: 1px solid #7C7C7C;
+  }
+}</style><style id="MJX-Menu-styles">.CtxtMenu_Menu {
+  position: absolute;
+  background-color: white;
+  color: black;
+  width: auto;
+  padding: 5px 0px;
+  border: 1px solid #CCCCCC;
+  margin: 0;
+  cursor: default;
+  font: menu;
+  text-align: left;
+  text-indent: 0;
+  text-transform: none;
+  line-height: normal;
+  letter-spacing: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  float: none;
+  z-index: 1001;
+  border-radius: 5px;
+  box-shadow: 0px 10px 20px #808080;
+}
+.CtxtMenu_MenuItem {
+  padding: 1px 2em;
+  background: transparent;
+}
+.CtxtMenu_MenuArrow {
+  position: absolute;
+  right: 0.5em;
+  padding-top: 0.25em;
+  color: #666666;
+  font-family: null;
+  font-size: 0.75em;
+}
+.CtxtMenu_MenuActive .CtxtMenu_MenuArrow {
+  color: white;
+}
+.CtxtMenu_MenuArrow.CtxtMenu_RTL {
+  left: 0.5em;
+  right: auto;
+}
+.CtxtMenu_MenuCheck {
+  position: absolute;
+  left: 0.7em;
+  font-family: null;
+}
+.CtxtMenu_MenuCheck.CtxtMenu_RTL {
+  right: 0.7em;
+  left: auto;
+}
+.CtxtMenu_MenuRadioCheck {
+  position: absolute;
+  left: 0.7em;
+}
+.CtxtMenu_MenuRadioCheck.CtxtMenu_RTL {
+  right: 0.7em;
+  left: auto;
+}
+.CtxtMenu_MenuInputBox {
+  padding-left: 1em;
+  right: 0.5em;
+  color: #666666;
+  font-family: null;
+}
+.CtxtMenu_MenuInputBox.CtxtMenu_RTL {
+  left: 0.1em;
+}
+.CtxtMenu_MenuComboBox {
+  left: 0.1em;
+  padding-bottom: 0.5em;
+}
+.CtxtMenu_MenuSlider {
+  left: 0.1em;
+}
+.CtxtMenu_SliderValue {
+  position: absolute;
+  right: 0.1em;
+  padding-top: 0.25em;
+  color: #333333;
+  font-size: 0.75em;
+}
+.CtxtMenu_MenuActive .CtxtMenu_SliderValue {
+  color: #DDDDDD;
+}
+.CtxtMenu_SliderBar {
+  outline: none;
+  background: #D3D3D3;
+}
+.CtxtMenu_MenuLabel {
+  padding: 1px 2em 3px 1.33em;
+  font-style: italic;
+}
+.CtxtMenu_MenuRule {
+  border-top: 1px solid #DDDDDD;
+  margin: 4px 3px;
+}
+.CtxtMenu_MenuDisabled {
+  color: #999;
+}
+.CtxtMenu_MenuActive {
+  background-color: #606872;
+  color: white;
+}
+.CtxtMenu_MenuDisabled:focus {
+  background-color: #E8E8E8;
+}
+.CtxtMenu_MenuLabel:focus {
+  background-color: #E8E8E8;
+}
+.CtxtMenu_ContextMenu:focus {
+  outline: none;
+}
+.CtxtMenu_ContextMenu .CtxtMenu_MenuItem:focus {
+  outline: none;
+}
+.CtxtMenu_SelectionMenu {
+  position: relative;
+  float: left;
+  border-bottom: none;
+  box-shadow: none ! important;
+  border-radius: 0px !important;
+}
+.CtxtMenu_SelectionItem {
+  padding-right: 1em;
+}
+.CtxtMenu_Selection {
+  right: 40%;
+  width: 50%;
+}
+.CtxtMenu_SelectionBox {
+  padding: 0em;
+  max-height: 20em;
+  max-width: none;
+  background-color: #FFFFFF;
+}
+.CtxtMenu_SelectionDivider {
+  clear: both;
+  border-top: 2px solid #000000;
+}
+.CtxtMenu_Menu .CtxtMenu_MenuClose {
+  top: -10px;
+  left: -10px;
+}
+@media (prefers-color-scheme: dark) /* menu */ {
+  .CtxtMenu_Menu {
+  color: #E0E0E0;
+  background-color: #242436;
+  box-shadow: 0px 10px 20px #000;
+  border: 1px solid #808080;
+}
+  .CtxtMenu_SliderValue {
+  color: #D0D0D0;
+}
+  .CtxtMenu_MenuDisabled:focus {
+  background-color: #383838;
+}
+  .CtxtMenu_MenuLabel:focus {
+  background-color: #585858;
+}
+  .CtxtMenu_MenuRule {
+  border-top: 1px solid #808080;
+}
+  .CtxtMenu_SelectionDivider {
+  border-top: 2px solid #808080;
+};
+}
+.CtxtMenu_MenuClose {
+  position: absolute;
+  cursor: pointer;
+  display: inline-block;
+  border: 2px solid #AAA;
+  border-radius: 18px;
+  font-family:  "Courier New", Courier;
+  font-size: 24px;
+  color: #F0F0F0;
+}
+.CtxtMenu_MenuClose span {
+  display: block;
+  background-color: #AAA;
+  border: 1.5px solid;
+  border-radius: 18px;
+  line-height: 0;
+  padding: 8px 0 6px;
+}
+.CtxtMenu_MenuClose:hover {
+  color: white !important;
+  border: 2px solid #CCC !important;
+}
+.CtxtMenu_MenuClose:hover span {
+  background-color: #CCC !important;
+}
+.CtxtMenu_MenuClose:hover:focus {
+  outline: none;
+}</style><style id="MJX-CHTML-styles">
+mjx-container[overflow="scroll"][display] {
+  overflow: auto clip;
+  min-width: initial !important;
+}
+
+mjx-container[overflow="truncate"][display] {
+  overflow: hidden clip;
+  min-width: initial !important;
+}
+
+mjx-container[display] {
+  display: block;
+  text-align: center;
+  justify-content: center;
+  margin: .7em 0;
+  padding: .3em 2px;
+}
+
+mjx-container[display][width="full"] {
+  display: flex;
+}
+
+mjx-container[justify="left"] {
+  text-align: left;
+  justify-content: left;
+}
+
+mjx-container[justify="right"] {
+  text-align: right;
+  justify-content: right;
+}
+
+mjx-container[jax="CHTML"] {
+  white-space: nowrap;
+}
+
+mjx-mo > mjx-c, mjx-mi > mjx-c, mjx-mn > mjx-c, mjx-ms > mjx-c, mjx-mtext > mjx-c {
+  clip-path: padding-box polygon(-1em -2px, calc(100% + 1em) -2px, calc(100% + 1em) calc(100% + 2px), -1em calc(100% + 2px));
+}
+
+mjx-stretchy-h {
+  clip-path: padding-box polygon(0 -2px, 100% -2px, 100% calc(100% + 2px), 0 calc(100% + 2px));
+}
+
+mjx-stretchy-v {
+  clip-path: padding-box polygon(-2px 0, calc(100% + 2px) 0, calc(100% + 2px) 100%, -2px 100%);
+}
+
+mjx-container [space="1"] {
+  margin-left: .111em;
+}
+
+mjx-container [space="2"] {
+  margin-left: .167em;
+}
+
+mjx-container [space="3"] {
+  margin-left: .222em;
+}
+
+mjx-container [space="4"] {
+  margin-left: .278em;
+}
+
+mjx-container [space="5"] {
+  margin-left: .333em;
+}
+
+mjx-container [rspace="1"] {
+  margin-right: .111em;
+}
+
+mjx-container [rspace="2"] {
+  margin-right: .167em;
+}
+
+mjx-container [rspace="3"] {
+  margin-right: .222em;
+}
+
+mjx-container [rspace="4"] {
+  margin-right: .278em;
+}
+
+mjx-container [rspace="5"] {
+  margin-right: .333em;
+}
+
+mjx-container [size="s"] {
+  font-size: 70.7%;
+}
+
+mjx-container [size="ss"] {
+  font-size: 50%;
+}
+
+mjx-container [size="Tn"] {
+  font-size: 60%;
+}
+
+mjx-container [size="sm"] {
+  font-size: 85%;
+}
+
+mjx-container [size="lg"] {
+  font-size: 120%;
+}
+
+mjx-container [size="Lg"] {
+  font-size: 144%;
+}
+
+mjx-container [size="LG"] {
+  font-size: 173%;
+}
+
+mjx-container [size="hg"] {
+  font-size: 207%;
+}
+
+mjx-container [size="HG"] {
+  font-size: 249%;
+}
+
+mjx-container [width="full"] {
+  width: 100%;
+}
+
+mjx-box {
+  display: inline-block;
+}
+
+mjx-block {
+  display: block;
+}
+
+mjx-itable {
+  display: inline-table;
+}
+
+mjx-row {
+  display: table-row;
+}
+
+mjx-row > mjx-cell, mjx-row > mjx-base, mjx-row > mjx-under, mjx-row > mjx-over, mjx-row > mjx-den {
+  display: table-cell;
+}
+
+mjx-container [inline-breaks] {
+  display: inline;
+}
+
+mjx-container .mjx-selected {
+  outline: 2px solid black;
+}
+
+@media (prefers-color-scheme: dark) {
+  mjx-container .mjx-selected {
+    outline: 2px solid #C8C8C8;
+  }
+}
+
+mjx-mtext {
+  display: inline-block;
+}
+
+mjx-mstyle {
+  display: inline-block;
+}
+
+mjx-merror {
+  display: inline-block;
+  color: red;
+  background-color: yellow;
+}
+
+mjx-mphantom {
+  visibility: hidden;
+}
+
+mjx-container[has-speech="true"] {
+  position: relative;
+  cursor: default;
+}
+
+mjx-speech {
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+}
+
+mjx-speech:focus {
+  outline: none;
+}
+
+mjx-container a[data-mjx-href] {
+  color: LinkText;
+  cursor: pointer;
+}
+
+mjx-container a[data-mjx-href].mjx-visited {
+  color: VisitedText;
+}
+
+mjx-container > mjx-help {
+  display: none;
+  position: absolute;
+  top: -.3em;
+  right: -.5em;
+  width: .6em;
+  height: .6em;
+  cursor: pointer;
+}
+
+mjx-container[display="true"] > mjx-help {
+  position: sticky;
+  inset: -100% 0 100% 0;
+  margin: -.3em -.5em 0 -.1em;
+  right: 0;
+  top: initial;
+}
+
+mjx-help > svg {
+  stroke: black;
+  width: 100%;
+  height: 100%;
+}
+
+mjx-help > svg > circle {
+  stroke-width: 1.5px;
+  cx: 9px;
+  cy: 9px;
+  r: 9px;
+  fill: white;
+}
+
+mjx-help > svg > circle:nth-child(2) {
+  fill: var(--mjx-bg1-color);
+  r: 7px;
+}
+
+mjx-help > svg > line {
+  stroke-width: 2.5px;
+  stroke-linecap: round;
+}
+
+mjx-help:hover > svg > circle:nth-child(2) {
+  fill: white;
+}
+
+mjx-container.mjx-explorer-active > mjx-help {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (prefers-color-scheme: dark) /* explorer */ {
+  mjx-help > svg {
+    stroke: #E0E0E0;
+  }
+  mjx-help > svg > circle {
+    fill: #404040;
+  }
+  mjx-help > svg > circle:nth-child(2) {
+    fill: rgba(132, 132, 255, .3);
+  }
+  mjx-help:hover > svg > circle:nth-child(2) {
+    stroke: #AAAAAA;
+      fill: #404040;
+  }
+}
+
+mjx-container[jax="CHTML"] > mjx-math.NCM-N[breakable] > * {
+  font-family: MJX-NCM-ZERO, MJX-NCM-N;
+}
+
+.NCM-N {
+  font-family: MJX-NCM-ZERO, MJX-NCM-N;
+}
+
+.NCM-B {
+  font-family: MJX-NCM-ZERO, MJX-NCM-B;
+}
+
+.NCM-I {
+  font-family: MJX-NCM-ZERO, MJX-NCM-I;
+}
+
+.NCM-BI {
+  font-family: MJX-NCM-ZERO, MJX-NCM-BI;
+}
+
+.NCM-DS {
+  font-family: MJX-NCM-ZERO, MJX-NCM-DS;
+}
+
+.NCM-F {
+  font-family: MJX-NCM-ZERO, MJX-NCM-F;
+}
+
+.NCM-FB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-FB;
+}
+
+.NCM-SS {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SS;
+}
+
+.NCM-SSB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SSB;
+}
+
+.NCM-SSI {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SSI;
+}
+
+.NCM-SSBI {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SSBI;
+}
+
+.NCM-M {
+  font-family: MJX-NCM-ZERO, MJX-NCM-M;
+}
+
+.NCM-SO {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SO;
+}
+
+.NCM-LO {
+  font-family: MJX-NCM-ZERO, MJX-NCM-LO;
+}
+
+.NCM-S3 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S3;
+}
+
+.NCM-S4 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S4;
+}
+
+.NCM-S5 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S5;
+}
+
+.NCM-S6 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S6;
+}
+
+.NCM-S7 {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S7;
+}
+
+.NCM-MI {
+  font-family: MJX-NCM-ZERO, MJX-NCM-MI;
+}
+
+.NCM-C {
+  font-family: MJX-NCM-ZERO, MJX-NCM-C;
+}
+
+.NCM-CB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-CB;
+}
+
+.NCM-OS {
+  font-family: MJX-NCM-ZERO, MJX-NCM-OS;
+}
+
+.NCM-OB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-OB;
+}
+
+.NCM-V {
+  font-family: MJX-NCM-ZERO, MJX-NCM-V;
+}
+
+.NCM-LT {
+  font-family: MJX-NCM-ZERO, MJX-NCM-LT;
+}
+
+.NCM-RB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-RB;
+}
+
+.NCM-EM {
+  font-family: MJX-NCM-ZERO, MJX-NCM-EM;
+}
+
+.NCM-B-a {
+  font-family: MJX-NCM-ZERO, MJX-NCM-B-a;
+}
+
+.NCM-U {
+  font-family: MJX-NCM-ZERO, MJX-NCM-U;
+}
+
+.NCM-U-a {
+  font-family: MJX-NCM-ZERO, MJX-NCM-U-a;
+}
+
+.NCM-S {
+  font-family: MJX-NCM-ZERO, MJX-NCM-S;
+}
+
+.NCM-SB {
+  font-family: MJX-NCM-ZERO, MJX-NCM-SB;
+}
+
+@font-face /* MJX-NCM-ZERO */ {
+  font-family: MJX-NCM-ZERO;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-zero.woff2") format("woff2");
+}
+
+@font-face /* MJX-BRK */ {
+  font-family: MJX-BRK;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-brk.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-N */ {
+  font-family: MJX-NCM-N;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-n.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-B */ {
+  font-family: MJX-NCM-B;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-b.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-I */ {
+  font-family: MJX-NCM-I;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-i.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-BI */ {
+  font-family: MJX-NCM-BI;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-bi.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-DS */ {
+  font-family: MJX-NCM-DS;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ds.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-F */ {
+  font-family: MJX-NCM-F;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-f.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-FB */ {
+  font-family: MJX-NCM-FB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-fb.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SS */ {
+  font-family: MJX-NCM-SS;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ss.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SSB */ {
+  font-family: MJX-NCM-SSB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ssb.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SSI */ {
+  font-family: MJX-NCM-SSI;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ssi.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SSBI */ {
+  font-family: MJX-NCM-SSBI;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ssbi.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-M */ {
+  font-family: MJX-NCM-M;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-m.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SO */ {
+  font-family: MJX-NCM-SO;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-so.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-LO */ {
+  font-family: MJX-NCM-LO;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-lo.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S3 */ {
+  font-family: MJX-NCM-S3;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s3.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S4 */ {
+  font-family: MJX-NCM-S4;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s4.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S5 */ {
+  font-family: MJX-NCM-S5;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s5.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S6 */ {
+  font-family: MJX-NCM-S6;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s6.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S7 */ {
+  font-family: MJX-NCM-S7;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s7.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-MI */ {
+  font-family: MJX-NCM-MI;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-mi.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-C */ {
+  font-family: MJX-NCM-C;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-c.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-CB */ {
+  font-family: MJX-NCM-CB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-cb.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-OS */ {
+  font-family: MJX-NCM-OS;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-os.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-OB */ {
+  font-family: MJX-NCM-OB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-ob.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-V */ {
+  font-family: MJX-NCM-V;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-v.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-LT */ {
+  font-family: MJX-NCM-LT;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-lt.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-RB */ {
+  font-family: MJX-NCM-RB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-rb.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-EM */ {
+  font-family: MJX-NCM-EM;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-em.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-B-a */ {
+  font-family: MJX-NCM-B-a;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-b-a.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-U */ {
+  font-family: MJX-NCM-U;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-u.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-U-a */ {
+  font-family: MJX-NCM-U-a;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-u-a.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-S */ {
+  font-family: MJX-NCM-S;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-s.woff2") format("woff2");
+}
+
+@font-face /* MJX-NCM-SB */ {
+  font-family: MJX-NCM-SB;
+  src: url("https://cdn.jsdelivr.net/npm/@mathjax/mathjax-newcm-font@4.1.2/chtml/woff2/mjx-ncm-sb.woff2") format("woff2");
+}
+</style></head>
+  <body>
+    <div class="hamburger-container">
+        <input type="checkbox" id="global-menu-toggle" class="menu-toggle">
+        <label for="global-menu-toggle" class="menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <label for="global-menu-toggle" class="menu-overlay"></label>
+        <nav class="side-menu">
+            <a href="index.html" class="custom-logo">
+                <div class="logo-icon">
+                    <span class="bracket">&lt;</span>
+                    <span class="slash">/</span>
+                    <span class="bracket">&gt;</span>
+                </div>
+                <div class="logo-text">Prog<span>III</span></div>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#temas">Temas</a>
+                <a href="https://frlr.cvg.utn.edu.ar/" target="_blank">Campus</a>
+            </div>
+        </nav>
+    </div>
+    <div id="sidebar">
+      <h3 style="padding: 20px; color: var(--accent)">Índice</h3>
+      <div class="menu-item" data-target="section-0">Introducción a Git</div>
+<div class="menu-item" data-target="section-1">Sistema de control de versiones (VCS)</div>
+<div class="menu-item" data-target="section-2">Tipos de VCS</div>
+<div class="menu-item" data-target="section-3">VCS local</div>
+<div class="menu-item" data-target="section-4">VCS centralizado</div>
+<div class="menu-item" data-target="section-5">VCS distribuido</div>
+<div class="menu-item" data-target="section-6">Git</div>
+<div class="menu-item" data-target="section-7">Fundamentos de Git</div>
+<div class="menu-item" data-target="section-8">Almacenamiento de datos</div>
+<div class="menu-item" data-target="section-9">Fundamentos de Git (continuación)</div>
+<div class="menu-item" data-target="section-10">Estados: flujo de trabajo</div>
+<div class="menu-item" data-target="section-11">Comandos básicos</div>
+<div class="menu-item" data-target="section-12">Estados de archivos</div>
+<div class="menu-item" data-target="section-13">Otros comandos frecuentes</div>
+
+    </div>
+    <div id="content"><div id="section-0" class="content-section" style="display: block;"><h1 id="introduccion-a-git">Introducción a Git</h1>
+</div>
+<div id="section-1" class="content-section" style="display: none;"><h2 id="sistema-de-control-de-versiones-vcs">Sistema de control de versiones (VCS)</h2>
+<h3 id="que-es">¿Qué es?</h3>
+<p>Un sistema de control de versiones registra los cambios realizados en uno o
+varios archivos a lo largo del tiempo. Gracias a esto, es posible consultar el
+historial de un proyecto, recuperar versiones anteriores y trabajar de manera
+más ordenada.</p>
+<h3 id="para-que-sirve">¿Para qué sirve?</h3>
+<ul>
+<li>Volver a versiones anteriores de uno o varios archivos.</li>
+<li>Recuperar una versión previa del proyecto completo.</li>
+<li>Comparar cambios realizados en distintos momentos.</li>
+<li>Identificar quién modificó por última vez una parte del código.</li>
+<li>Detectar quién y cuándo introdujo un error.</li>
+<li>Restaurar archivos dañados o eliminados.</li>
+</ul>
+</div>
+<div id="section-2" class="content-section" style="display: none;"><h2 id="tipos-de-vcs">Tipos de VCS</h2>
+<p>Los sistemas de control de versiones pueden clasificarse en tres grandes tipos:</p>
+<ul>
+<li><strong>Local</strong></li>
+<li><strong>Centralizado</strong></li>
+<li><strong>Distribuido</strong></li>
+</ul>
+</div>
+<div id="section-3" class="content-section" style="display: none;"><h2 id="vcs-local">VCS local</h2>
+<p>En un sistema de control de versiones local, el historial de cambios se almacena
+en la misma computadora del usuario. Es una solución simple, pero presenta
+limitaciones para el trabajo colaborativo y mayores riesgos ante fallos del
+equipo o pérdida de información.</p>
+<p><img alt="vcs-local" src="./Introducción a Git_files/01-vcs-local.png"></p>
+</div>
+<div id="section-4" class="content-section" style="display: none;"><h2 id="vcs-centralizado">VCS centralizado</h2>
+<p>En un sistema centralizado, existe un servidor único que almacena el historial
+del proyecto y desde el cual los usuarios obtienen y envían cambios. Facilita la
+administración del trabajo en equipo, aunque depende fuertemente de la
+disponibilidad del servidor central.</p>
+<p><img alt="vcs-centralizado" src="./Introducción a Git_files/02-vcs-centralizado.png"></p>
+</div>
+<div id="section-5" class="content-section" style="display: none;"><h2 id="vcs-distribuido">VCS distribuido</h2>
+<p>En un sistema distribuido, cada usuario posee una copia completa del
+repositorio, incluido su historial. Esto mejora la redundancia, permite realizar
+muchas operaciones de forma local y favorece el trabajo colaborativo sin
+depender permanentemente de un servidor central.</p>
+<p><img alt="vcs-distribuido" src="./Introducción a Git_files/03-vcs-distribuido.png"></p>
+</div>
+<div id="section-6" class="content-section" style="display: none;"><h2 id="git">Git</h2>
+<h3 id="que-es_1">¿Qué es?</h3>
+<p>Git es un sistema de control de versiones distribuido. Fue diseñado para
+trabajar de manera rápida, segura y eficiente, incluso en proyectos grandes y
+con múltiples colaboradores.</p>
+<h3 id="objetivos-de-diseno">Objetivos de diseño</h3>
+<ul>
+<li>Alto rendimiento.</li>
+<li>Diseño simple.</li>
+<li>Soporte para desarrollo no lineal.</li>
+<li>Funcionamiento completamente distribuido.</li>
+<li>Capacidad para manejar proyectos de gran tamaño.</li>
+</ul>
+</div>
+<div id="section-7" class="content-section" style="display: none;"><h2 id="fundamentos-de-git">Fundamentos de Git</h2>
+<p>Las ideas principales sobre las que se apoya Git son las siguientes:</p>
+<ul>
+<li>Trabaja con <strong>copias instantáneas</strong>, no solo con diferencias.</li>
+<li>La mayoría de las operaciones son <strong>locales</strong>.</li>
+<li>Garantiza la <strong>integridad</strong> de los datos.</li>
+<li>Los archivos atraviesan distintos <strong>estados</strong> durante el trabajo.</li>
+</ul>
+</div>
+<div id="section-8" class="content-section" style="display: none;"><h2 id="almacenamiento-de-datos">Almacenamiento de datos</h2>
+<p>La primera imagen representa un modelo de almacenamiento basado en <strong>copias
+diferenciadas</strong>: cada nueva versión guarda únicamente los cambios respecto de la
+versión anterior.</p>
+<p><img alt="almacenamiento-datos-1" src="./Introducción a Git_files/04-almacenamiento-datos.png"></p>
+<p>La segunda imagen muestra el enfoque basado en <strong>copias instantáneas</strong>, que es
+el utilizado por Git: en cada versión se registra una instantánea del estado de
+los archivos del proyecto. Esta decisión permite manejar el historial de manera
+más eficiente y confiable.</p>
+<p><img alt="almacenamiento-datos-2" src="./Introducción a Git_files/05-almacenamiento-datos.png"></p>
+</div>
+<div id="section-9" class="content-section" style="display: none;"><h2 id="fundamentos-de-git-continuacion">Fundamentos de Git (continuación)</h2>
+<h3 id="copias-instantaneas-no-diferencias">Copias instantáneas, no diferencias</h3>
+<p>Git guarda el estado de los archivos en distintos momentos del tiempo. En lugar
+de almacenar únicamente las diferencias entre versiones, registra instantáneas
+del proyecto. Esto permite trabajar con el historial de forma más eficiente y
+confiable.</p>
+<h3 id="operaciones-locales">Operaciones locales</h3>
+<p>En Git, muchas operaciones se realizan sobre la copia local del repositorio.
+Esto hace que acciones como consultar el historial, comparar cambios o crear
+commits sean rápidas y no dependan de una conexión permanente a Internet.</p>
+<h3 id="integridad-suma-de-verificacion-sha-1">Integridad: suma de verificación (SHA-1)</h3>
+<p>Git identifica cada objeto mediante una suma de verificación calculada con el
+algoritmo SHA-1.</p>
+<ul>
+<li>Se representa como una cadena de 40 caracteres hexadecimales (<code>0-9</code> y <code>a-f</code>).</li>
+<li>Ejemplo: <code>24b9da6552252987aa493b52f8696cd6d3b00373</code></li>
+</ul>
+<h3 id="estados">Estados</h3>
+<p>En Git, un archivo puede encontrarse en alguno de estos estados:</p>
+<ul>
+<li><strong>Confirmado</strong> (<em>committed</em>): los datos ya están almacenados de manera segura
+  en la base de datos local del repositorio.</li>
+<li><strong>Modificado</strong> (<em>modified</em>): el archivo fue editado, pero sus cambios todavía
+  no se incorporaron al próximo commit.</li>
+<li><strong>Preparado</strong> (<em>staged</em>): el archivo modificado fue marcado para incluirse en
+  la próxima confirmación.</li>
+</ul>
+</div>
+<div id="section-10" class="content-section" style="display: none;"><h2 id="estados-flujo-de-trabajo">Estados: flujo de trabajo</h2>
+<p>La imagen representa los tres espacios principales del flujo de trabajo de Git.
+El <strong>working directory</strong> es el directorio de trabajo donde se crean y modifican
+los archivos. La <strong>staging area</strong> es el área de preparación donde se seleccionan
+los cambios que formarán parte del próximo commit. El <strong>.git directory
+(repository)</strong> es la base de datos local del repositorio, donde Git almacena de
+manera permanente la información confirmada.</p>
+<p><img alt="estados" src="./Introducción a Git_files/06-estados.png"></p>
+</div>
+<div id="section-11" class="content-section" style="display: none;"><h2 id="comandos-basicos">Comandos básicos</h2>
+<h3 id="configuracion-inicial">Configuración inicial</h3>
+<p>Definir el nombre del autor:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git config --global user.name <span class="hljs-string">"Nombre y apellido"</span>
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Definir el correo electrónico del autor:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git config --global user.email <span class="hljs-string">"correo@email.com"</span>
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Definir el editor de texto predeterminado:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git config --global core.editor notepad
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Mostrar la configuración actual:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git config --list
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="crear-un-repositorio">Crear un repositorio</h3>
+<p>Inicializar un nuevo repositorio Git:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git init
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="consultar-el-estado">Consultar el estado</h3>
+<p>Mostrar el estado completo del repositorio:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git status
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Mostrar una versión resumida del estado:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git status -s
+</code><button class="copy-btn">Copiar</button></pre>
+</div>
+<div id="section-12" class="content-section" style="display: none;"><h2 id="estados-de-archivos">Estados de archivos</h2>
+<p>La imagen muestra los posibles estados por los que puede pasar un archivo dentro
+del repositorio. Un archivo <strong>untracked</strong> es un archivo nuevo que Git todavía no
+está siguiendo. Un archivo <strong>unmodified</strong> no tiene cambios respecto de la última
+versión confirmada. Un archivo <strong>modified</strong> fue editado, pero esos cambios aún
+no fueron preparados. Un archivo <strong>staged</strong> ya fue agregado al área de
+preparación y está listo para formar parte del próximo commit.</p>
+<p><img alt="estados-archivos" src="./Introducción a Git_files/07-estados-archivos.png"></p>
+</div>
+<div id="section-13" class="content-section" style="display: none;"><h2 id="otros-comandos-frecuentes">Otros comandos frecuentes</h2>
+<h3 id="agregar-archivos-al-area-de-preparacion">Agregar archivos al área de preparación</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">git add archivo
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="confirmar-cambios">Confirmar cambios</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">git commit -m <span class="hljs-string">"mensaje"</span>
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="agregar-y-confirmar-en-un-solo-paso">Agregar y confirmar en un solo paso</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">git commit -a -m <span class="hljs-string">"mensaje"</span>
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="renombrar-archivos">Renombrar archivos</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">git <span class="hljs-built_in">mv</span> nombre_viejo nombre_nuevo
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="modificar-el-ultimo-commit">Modificar el último commit</h3>
+<p>Se utiliza, por ejemplo, para corregir el mensaje del último commit o agregar
+archivos que faltaron incluir:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git commit --amend
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="quitar-un-archivo-del-area-de-preparacion">Quitar un archivo del área de preparación</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">git restore --staged archivo
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="descartar-cambios-en-un-archivo-modificado">Descartar cambios en un archivo modificado</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">git restore archivo
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="consultar-el-historial">Consultar el historial</h3>
+<p>Mostrar el historial completo:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git <span class="hljs-built_in">log</span>
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Mostrar solo el último commit:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git <span class="hljs-built_in">log</span> -1
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Mostrar los últimos dos commits con sus diferencias:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git <span class="hljs-built_in">log</span> -p -2
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Mostrar el historial de un archivo específico:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git <span class="hljs-built_in">log</span> archivo
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="clonar-un-repositorio">Clonar un repositorio</h3>
+<pre><code class="language-bash hljs" data-highlighted="yes">git <span class="hljs-built_in">clone</span> repositorio
+</code><button class="copy-btn">Copiar</button></pre>
+<h3 id="trabajar-con-repositorios-remotos">Trabajar con repositorios remotos</h3>
+<p>Ver los repositorios remotos configurados:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git remote -v
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Agregar un repositorio remoto:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git remote add nombre repositorio
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Descargar cambios desde un repositorio remoto:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git fetch nombre
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Descargar y fusionar cambios del repositorio remoto:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git pull origin master
+</code><button class="copy-btn">Copiar</button></pre>
+<p>Enviar cambios al repositorio remoto:</p>
+<pre><code class="language-bash hljs" data-highlighted="yes">git push origin master
+</code><button class="copy-btn">Copiar</button></pre></div>
+</div>
+
+    <script src="./Introducción a Git_files/highlight.min.js.descarga"></script>
+    <script src="./Introducción a Git_files/highlightjs-line-numbers.min.js.descarga"></script>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: false, theme: "dark" });
+
+      async function renderMermaid() {
+        const nodes = document.querySelectorAll(
+          '.content-section[style*="block"] pre.mermaid:not([data-processed])',
+        );
+        if (nodes.length) await mermaid.run({ nodes });
+      }
+
+      window.__mermaidRender = renderMermaid;
+      renderMermaid();
+    </script>
+    <script>
+      MathJax = {
+        tex: { inlineMath: [["$", "$"]], displayMath: [["$$", "$$"]] },
+        options: {
+          skipHtmlTags: [
+            "script",
+            "noscript",
+            "style",
+            "textarea",
+            "pre",
+            "code",
+          ],
+        },
+      };
+    </script>
+    <script src="./Introducción a Git_files/tex-mml-chtml.js.descarga"></script>
+    <script>
+      function addCopyButtons() {
+        document.querySelectorAll("pre code").forEach((code) => {
+          const btn = document.createElement("button");
+          btn.className = "copy-btn";
+          btn.textContent = "Copiar";
+          btn.addEventListener("click", () => {
+            navigator.clipboard
+              .writeText(
+                [...code.querySelectorAll(".hljs-ln-code")]
+                  .map((td) => td.innerText)
+                  .join("\n"),
+              )
+              .then(() => {
+                btn.textContent = "Copiado";
+                btn.classList.add("copied");
+                setTimeout(() => {
+                  btn.textContent = "Copiar";
+                  btn.classList.remove("copied");
+                }, 2000);
+              });
+          });
+          code.parentElement.appendChild(btn);
+        });
+      }
+
+      function showSection(id) {
+        document
+          .querySelectorAll(".content-section")
+          .forEach((s) => (s.style.display = "none"));
+        document.getElementById(id).style.display = "block";
+        window.scrollTo(0, 0);
+        hljs.highlightAll();
+        hljs.initLineNumbersOnLoad();
+        addCopyButtons();
+        MathJax.typesetPromise();
+        if (window.__mermaidRender) window.__mermaidRender();
+      }
+
+      document.querySelectorAll(".menu-item").forEach((item) => {
+        item.addEventListener("click", () => showSection(item.dataset.target));
+      });
+
+      // Mostrar la primera sección por defecto
+      const first = document.querySelector(".content-section");
+      if (first) first.style.display = "block";
+      hljs.highlightAll();
+      hljs.initLineNumbersOnLoad();
+      addCopyButtons();
+    </script>
+  
+
+</body></html>

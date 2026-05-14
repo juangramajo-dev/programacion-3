@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programación III - Guía de Estudio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="master.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        /* Extra styles for index */
+        .hero h1 span {
+            display: block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-blobs">
+        <div class="blob"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <div class="hamburger-container">
+        <input type="checkbox" id="global-menu-toggle" class="menu-toggle">
+        <label for="global-menu-toggle" class="menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <label for="global-menu-toggle" class="menu-overlay"></label>
+        <nav class="side-menu">
+            <a href="index.html" class="custom-logo">
+                <div class="logo-icon">
+                    <span class="bracket">&lt;</span>
+                    <span class="slash">/</span>
+                    <span class="bracket">&gt;</span>
+                </div>
+                <div class="logo-text">Prog<span>III</span></div>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#temas">Temas</a>
+                <a href="https://frlr.cvg.utn.edu.ar/" target="_blank">Campus</a>
+            </div>
+        </nav>
+    </div>
+
+    <header class="hero">
+        <h1 data-animate>Guía de Estudio <span>Programación III</span></h1>
+        <p data-animate>Explora los conceptos fundamentales del desarrollo web moderno, desde la arquitectura básica hasta JavaScript avanzado.</p>
+    </header>
+
+    <main class="topics-grid" id="temas">
+        <!-- Topic 1 -->
+        <a href="Introducción a la web.html" class="topic-card" data-animate>
+            <div class="icon">🌐</div>
+            <h3>Introducción a la Web</h3>
+            <p>Descubre cómo funciona la World Wide Web, la arquitectura cliente-servidor y las tecnologías base.</p>
+            <div class="footer">Ver contenido &rarr;</div>
+        </a>
+
+        <!-- Topic 2 -->
+        <a href="Introducción a HTML.html" class="topic-card" data-animate>
+            <div class="icon">📄</div>
+            <h3>Introducción a HTML</h3>
+            <p>Estructura tus páginas web utilizando etiquetas semánticas y mejores prácticas de accesibilidad.</p>
+            <div class="footer">Ver contenido &rarr;</div>
+        </a>
+
+        <!-- Topic 3 -->
+        <a href="Elementos HTML de bloque y en linea.html" class="topic-card" data-animate>
+            <div class="icon">📦</div>
+            <h3>Bloque vs En Línea</h3>
+            <p>Entiende la diferencia fundamental en el comportamiento de los elementos HTML en el layout.</p>
+            <div class="footer">Ver contenido &rarr;</div>
+        </a>
+
+        <!-- Topic 4 -->
+        <a href="Introducción a CSS.html" class="topic-card" data-animate>
+            <div class="icon">🎨</div>
+            <h3>Introducción a CSS</h3>
+            <p>Dale estilo a tus aplicaciones con selectores, cascada y propiedades fundamentales de diseño.</p>
+            <div class="footer">Ver contenido &rarr;</div>
+        </a>
+
+        <!-- Topic 5 -->
+        <a href="El modelo de caja.html" class="topic-card" data-animate>
+            <div class="icon">🔲</div>
+            <h3>El Modelo de Caja</h3>
+            <p>Domina el margen, borde, relleno y contenido para controlar el espacio en tus diseños.</p>
+            <div class="footer">Ver contenido &rarr;</div>
+        </a>
+
+        <!-- Topic 6 -->
+        <a href="Introducción a Git.html" class="topic-card" data-animate>
+            <div class="icon">🌿</div>
+            <h3>Introducción a Git</h3>
+            <p>Control de versiones esencial para trabajar en equipo y mantener un historial de cambios.</p>
+            <div class="footer">Ver contenido &rarr;</div>
+        </a>
+
+        <!-- Topic 7 -->
+        <a href="Ramas en Git.html" class="topic-card" data-animate>
+            <div class="icon">🔱</div>
+            <h3>Ramas en Git</h3>
+            <p>Aprende a trabajar con branches, fusiones y flujos de trabajo colaborativos.</p>
+            <div class="footer">Ver contenido &rarr;</div>
+        </a>
+
+        <!-- Topic 8 -->
+        <a href="Introducción a JavaScript.html" class="topic-card" data-animate>
+            <div class="icon">⚡</div>
+            <h3>Introducción a JavaScript</h3>
+            <p>Añade interactividad y lógica a tus sitios web con el lenguaje más popular del mundo.</p>
+            <div class="footer">Ver contenido &rarr;</div>
+        </a>
+    </main>
+
+    <footer style="text-align: center; padding: 4rem 2rem; color: var(--text-muted); font-size: 0.9rem;">
+        <p>&copy; 2026 Programación III - UTN FRLR</p>
+    </footer>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('[data-animate]').forEach((el, i) => {
+            el.style.transitionDelay = `${i * 100}ms`;
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
