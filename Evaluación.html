@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación - Programación 3</title>
+    <link rel="stylesheet" href="master.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/tokyo-night-dark.min.css">
+    <style>
+      .quiz-container { max-width: 800px; margin: 0 auto; }
+      .timer { font-size: 1.5rem; font-weight: bold; color: var(--primary); text-align: right; margin-bottom: 20px; }
+      .timer.warning { color: #f87171; animation: pulse 1s infinite; }
+      .question-card { margin-bottom: 30px; background: rgba(255,255,255,0.03); padding: 20px; border-radius: 12px; border: 1px solid var(--glass-border); }
+      .question-card h3 { margin-top: 0; color: var(--accent); }
+      .options { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+      .options label { display: flex; align-items: center; padding: 12px 15px; background: rgba(0,0,0,0.2); border-radius: 8px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
+      .options label:hover { background: rgba(99, 102, 241, 0.1); border-color: rgba(99, 102, 241, 0.3); }
+      .options input[type="radio"] { margin-right: 15px; cursor: pointer; }
+      .options input[type="text"] { width: 100%; padding: 12px 15px; border-radius: 8px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); color: var(--text-color); font-size: 1rem; }
+      .options input[type="text"]:focus { outline: none; border-color: var(--primary); }
+      .correct-ans { border-color: #4ade80 !important; background: rgba(74, 222, 128, 0.1) !important; }
+      .incorrect-ans { border-color: #f87171 !important; background: rgba(248, 113, 113, 0.1) !important; }
+      .result-summary { font-size: 1.5rem; text-align: center; margin: 30px 0; padding: 20px; background: rgba(99, 102, 241, 0.1); border-radius: 12px; }
+      .btn { padding: 12px 24px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer; font-size: 1.1rem; font-weight: 600; transition: transform 0.2s; }
+      .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+      .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+      .feedback { margin-top: 10px; font-weight: 500; font-size: 0.9rem; }
+      .feedback.success { color: #4ade80; }
+      .feedback.error { color: #f87171; }
+      @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+      
+</style>
+</head>
+<body>
+    <div class="hamburger-container">
+        <input type="checkbox" id="global-menu-toggle" class="menu-toggle">
+        <label for="global-menu-toggle" class="menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+        <label for="global-menu-toggle" class="menu-overlay"></label>
+        <nav class="side-menu">
+            <a href="index.html" class="custom-logo">
+                <div class="logo-icon">
+                    <span class="bracket">&lt;</span>
+                    <span class="slash">/</span>
+                    <span class="bracket">&gt;</span>
+                </div>
+                <div class="logo-text">Prog<span>III</span></div>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Inicio</a>
+                <a href="index.html#temas">Temas</a>
+                <a href="Evaluación.html">Evaluación</a>
+                <a href="https://frlr.cvg.utn.edu.ar/" target="_blank">Campus</a>
+            </div>
+        </nav>
+    </div>
+
+    <main id="content" style="margin-left: auto !important; margin-right: auto !important; max-width: 1200px !important;">
+        <header class="hero" data-animate>
+            <h1>Evaluación de Conocimientos</h1>
+            <p>Pon a prueba lo que has aprendido en Programación 3.</p>
+        </header>
+
+        <section id="quiz-intro" class="content-section" data-animate style="display: block;">
+            <h2>Instrucciones</h2>
+            <div class="quiz-container">
+                <p>Esta evaluación consta de <strong>10 preguntas</strong> elegidas al azar de un banco de 100.</p>
+                <p>Tienes <strong>20 minutos</strong> para completarla.</p>
+                <p>Tipos de preguntas: Opción múltiple, Verdadero/Falso, y Completar conceptos.</p>
+                <button id="start-btn" class="btn" style="margin-top: 20px;">Comenzar Evaluación</button>
+            </div>
+        </section>
+
+        <section id="quiz-active" class="content-section" data-animate style="display: none;">
+            <div class="quiz-container">
+                <div class="timer" id="timer">20:00</div>
+                <div id="questions-container"></div>
+                <div style="text-align: right; margin-top: 30px;">
+                    <button id="submit-btn" class="btn">Entregar Evaluación</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="quiz-results" class="content-section" data-animate style="display: none;">
+            <div class="quiz-container">
+                <h2>Resultados</h2>
+                <div class="result-summary" id="result-score"></div>
+                <div id="results-review"></div>
+                <div style="text-align: center; margin-top: 30px;">
+                    <button id="retry-btn" class="btn">Intentar de nuevo</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <script>
+      const ALL_QUESTIONS = [
+        {"type": "tf", "q": "WWW significa World Wide Web.", "correct": true},
+        {"type": "tf", "q": "El backend se ejecuta en el navegador del usuario.", "correct": false},
+        {"type": "tf", "q": "Una dirección IP identifica de manera única a un dispositivo en una red.", "correct": true},
+        {"type": "tf", "q": "El cliente realiza peticiones y el servidor responde.", "correct": true},
+        {"type": "tf", "q": "El frontend también es conocido como lado del cliente.", "correct": true},
+        {"type": "tf", "q": "Un servidor web solo puede alojar un único sitio web.", "correct": false},
+        {"type": "mc", "q": "¿Qué protocolo se utiliza para transferir páginas web?", "options": ["HTTP", "FTP", "SMTP", "SSH"], "correct": 0},
+        {"type": "mc", "q": "¿Qué significa URL?", "options": ["Uniform Resource Locator", "Universal Resource Link", "Uniform Registered Link", "Universal Registered Locator"], "correct": 0},
+        {"type": "mc", "q": "¿Cuál de estos es un navegador web?", "options": ["Chrome", "Windows", "Linux", "Apache"], "correct": 0},
+        {"type": "mc", "q": "El código de estado HTTP 404 significa:", "options": ["Not Found", "OK", "Server Error", "Forbidden"], "correct": 0},
+        {"type": "mc", "q": "¿Cuál es el puerto estándar para HTTP?", "options": ["80", "443", "21", "22"], "correct": 0},
+        {"type": "mc", "q": "La sigla ISP significa:", "options": ["Internet Service Provider", "Internal System Process", "Internet System Protocol", "Internal Service Provider"], "correct": 0},
+        {"type": "mc", "q": "¿Qué método HTTP se usa comúnmente para enviar datos de un formulario de forma segura?", "options": ["POST", "GET", "PUT", "DELETE"], "correct": 0},
+        {"type": "fill", "q": "El sistema que traduce nombres de dominio a direcciones IP es el ___ (siglas).", "correct": ["dns", "dns "]},
+        {"type": "fill", "q": "El protocolo seguro para la web es ___.", "correct": ["https"]},
+        {"type": "fill", "q": "___ es el lenguaje utilizado para estructurar contenido en la web.", "correct": ["html"]},
+        {"type": "fill", "q": "El conjunto de reglas para la comunicación entre dispositivos es un ___.", "correct": ["protocolo"]},
+        {"type": "fill", "q": "La red global de computadoras interconectadas se llama ___.", "correct": ["internet"]},
+        {"type": "fill", "q": "Las páginas web estáticas sin estilo ni lógica generalmente se escriben solo en ___.", "correct": ["html"]},
+        {"type": "fill", "q": "¿Qué método HTTP se usa para solicitar un recurso sin modificarlo?", "correct": ["get"]},
+
+        {"type": "tf", "q": "<div> es un elemento de bloque por defecto.", "correct": true},
+        {"type": "tf", "q": "<br> requiere una etiqueta de cierre.", "correct": false},
+        {"type": "tf", "q": "<span> es un elemento en línea.", "correct": true},
+        {"type": "tf", "q": "<strong> hace que el texto se vea en cursiva por defecto.", "correct": false},
+        {"type": "tf", "q": "El atributo id debe ser único en toda la página HTML.", "correct": true},
+        {"type": "tf", "q": "HTML es considerado un lenguaje de programación.", "correct": false},
+        {"type": "mc", "q": "¿Qué etiqueta define el título de la página en la pestaña del navegador?", "options": ["<title>", "<head>", "<header>", "<h1>"], "correct": 0},
+        {"type": "mc", "q": "¿Qué atributo se usa para especificar la ruta de una imagen en <img>?", "options": ["src", "href", "path", "url"], "correct": 0},
+        {"type": "mc", "q": "¿Cuál es la estructura jerárquica correcta de un documento HTML?", "options": ["html > (head + body)", "head > (html + body)", "body > (html + head)", "html > head > body"], "correct": 0},
+        {"type": "mc", "q": "¿Qué etiqueta se usa para el encabezado principal de mayor importancia?", "options": ["<h1>", "<header>", "<head>", "<h6>"], "correct": 0},
+        {"type": "mc", "q": "¿Qué etiqueta crea una tabla?", "options": ["<table>", "<tabular>", "<grid>", "<t>"], "correct": 0},
+        {"type": "mc", "q": "¿Qué atributo de la etiqueta <a> indica el destino del enlace?", "options": ["href", "src", "link", "to"], "correct": 0},
+        {"type": "mc", "q": "¿Para qué sirve el atributo alt en las imágenes?", "options": ["Texto alternativo", "Alineación", "Altura", "Alerta"], "correct": 0},
+        {"type": "fill", "q": "La etiqueta para insertar una imagen es ___.", "correct": ["img"]},
+        {"type": "fill", "q": "La lista desordenada se crea con la etiqueta ___.", "correct": ["ul"]},
+        {"type": "fill", "q": "El atributo ___ en un formulario (<form>) define a dónde se envían los datos.", "correct": ["action"]},
+        {"type": "fill", "q": "Una fila en una tabla HTML se define con la etiqueta ___.", "correct": ["tr"]},
+        {"type": "fill", "q": "El elemento semántico de HTML5 para contenido de navegación es ___.", "correct": ["nav"]},
+        {"type": "fill", "q": "El tipo de input (<input type=\"...\">) para introducir una contraseña es ___.", "correct": ["password"]},
+        {"type": "fill", "q": "El tipo de input para un casillero de verificación es ___.", "correct": ["checkbox"]},
+
+        {"type": "tf", "q": "El selector de clase en CSS se indica con un punto (.).", "correct": true},
+        {"type": "tf", "q": "El margen (margin) es el espacio interior entre el contenido y el borde.", "correct": false},
+        {"type": "tf", "q": "display: none oculta el elemento pero este sigue ocupando espacio en el layout.", "correct": false},
+        {"type": "tf", "q": "La especificidad determina qué regla CSS se aplica cuando hay conflictos.", "correct": true},
+        {"type": "tf", "q": "En el modelo de caja tradicional, el width incluye por defecto el padding y el border.", "correct": false},
+        {"type": "tf", "q": "El selector universal se representa con un asterisco (*).", "correct": true},
+        {"type": "mc", "q": "¿Qué significa CSS?", "options": ["Cascading Style Sheets", "Computer Style Sheets", "Creative Style System", "Colorful Style Sheets"], "correct": 0},
+        {"type": "mc", "q": "¿Cuál es la sintaxis correcta para referenciar un ID en CSS?", "options": ["#nombre", ".nombre", "nombre", "*nombre"], "correct": 0},
+        {"type": "mc", "q": "En el modelo de caja, ¿qué espacio existe entre el contenido y el borde?", "options": ["Padding", "Margin", "Outline", "Border-spacing"], "correct": 0},
+        {"type": "mc", "q": "¿Cómo se aplica un estilo en línea directamente a un elemento HTML?", "options": ["Atributo style", "Etiqueta <style>", "Atributo class", "Atributo css"], "correct": 0},
+        {"type": "mc", "q": "¿Qué valor de display hace que los elementos de bloque se coloquen uno al lado del otro?", "options": ["inline-block", "block", "none", "hidden"], "correct": 0},
+        {"type": "mc", "q": "¿Qué pseudoclase se activa cuando el mouse pasa sobre un elemento?", "options": [":hover", ":active", ":focus", ":visited"], "correct": 0},
+        {"type": "mc", "q": "¿Cuál de las siguientes unidades es relativa al tamaño de fuente del elemento raíz (html)?", "options": ["rem", "em", "px", "vh"], "correct": 0},
+        {"type": "fill", "q": "La propiedad CSS para cambiar el color del texto es ___.", "correct": ["color"]},
+        {"type": "fill", "q": "La propiedad para cambiar el color de fondo es ___.", "correct": ["background-color", "background"]},
+        {"type": "fill", "q": "Para cambiar el tamaño de la fuente se usa la propiedad ___.", "correct": ["font-size"]},
+        {"type": "fill", "q": "Un elemento con position: ___ se posiciona relativo a su primer ancestro posicionado.", "correct": ["absolute"]},
+        {"type": "fill", "q": "Para centrar texto se usa la propiedad ___ con el valor center.", "correct": ["text-align"]},
+        {"type": "fill", "q": "La propiedad para redondear las esquinas de un borde es ___.", "correct": ["border-radius"]},
+        {"type": "fill", "q": "Para poner el texto en negrita mediante CSS se usa la propiedad ___.", "correct": ["font-weight"]},
+
+        {"type": "tf", "q": "JavaScript es de tipado estático.", "correct": false},
+        {"type": "tf", "q": "En JavaScript, === compara tanto valor como tipo.", "correct": true},
+        {"type": "tf", "q": "Un Array en JavaScript puede contener diferentes tipos de datos simultáneamente.", "correct": true},
+        {"type": "tf", "q": "querySelector devuelve siempre un arreglo con todos los elementos que coinciden.", "correct": false},
+        {"type": "tf", "q": "Una función en JavaScript puede no tener nombre (función anónima).", "correct": true},
+        {"type": "tf", "q": "null y undefined representan exactamente lo mismo en JS y son del mismo tipo.", "correct": false},
+        {"type": "mc", "q": "¿Qué palabra clave se recomienda para declarar una variable que no cambiará de valor?", "options": ["const", "let", "var", "static"], "correct": 0},
+        {"type": "mc", "q": "¿Cuál de los siguientes NO es un tipo de dato primitivo en JavaScript?", "options": ["Array", "Boolean", "String", "Number"], "correct": 0},
+        {"type": "mc", "q": "¿Cómo se llama un bucle clásico basado en un contador en JS?", "options": ["for", "loop", "repeat", "while"], "correct": 0},
+        {"type": "mc", "q": "¿Qué objeto predeterminado representa el documento HTML en JS?", "options": ["document", "window", "html", "dom"], "correct": 0},
+        {"type": "mc", "q": "¿Qué método convierte una cadena de texto en un número entero?", "options": ["parseInt", "toInt", "Integer.parse", "Number.int"], "correct": 0},
+        {"type": "mc", "q": "¿Cuál es el operador lógico AND en JavaScript?", "options": ["&&", "||", "!", "AND"], "correct": 0},
+        {"type": "mc", "q": "¿Qué significa DOM?", "options": ["Document Object Model", "Data Object Model", "Document Oriented Model", "Dynamic Object Model"], "correct": 0},
+        {"type": "fill", "q": "La función para imprimir un mensaje en la consola es console.___.", "correct": ["log"]},
+        {"type": "fill", "q": "Una estructura condicional básica comienza con la palabra clave ___.", "correct": ["if"]},
+        {"type": "fill", "q": "Para añadir un elemento al final de un arreglo se usa el método ___.", "correct": ["push"]},
+        {"type": "fill", "q": "Los eventos se escuchan generalmente mediante el método ___.", "correct": ["addeventlistener"]},
+        {"type": "fill", "q": "El ciclo que se ejecuta mientras una condición sea verdadera es ___.", "correct": ["while"]},
+        {"type": "fill", "q": "Los objetos en JS se definen típicamente usando ___ (indica el símbolo).", "correct": ["{}", "{", "}"]},
+        {"type": "fill", "q": "Para acceder al primer elemento de un arreglo llamado arr, se usa arr[___].", "correct": ["0"]},
+
+        {"type": "tf", "q": "Git y GitHub son exactamente la misma herramienta.", "correct": false},
+        {"type": "tf", "q": "git add . prepara (stage) todos los archivos modificados para el próximo commit.", "correct": true},
+        {"type": "tf", "q": "git push envía los commits locales al repositorio remoto.", "correct": true},
+        {"type": "tf", "q": "La rama principal por defecto tradicionalmente se llama 'master' o 'main'.", "correct": true},
+        {"type": "tf", "q": "Si dos personas modifican la misma línea de un archivo, ocurrirá un conflicto al fusionar.", "correct": true},
+        {"type": "tf", "q": "git fetch actualiza tus archivos locales automáticamente en tu directorio de trabajo.", "correct": false},
+        {"type": "mc", "q": "¿Qué comando inicializa un nuevo repositorio de Git local?", "options": ["git init", "git start", "git create", "git new"], "correct": 0},
+        {"type": "mc", "q": "¿Qué comando se usa para ver el estado de los archivos en el repositorio?", "options": ["git status", "git info", "git log", "git check"], "correct": 0},
+        {"type": "mc", "q": "¿Qué es una rama (branch) en Git?", "options": ["Una línea de desarrollo paralela", "Un tipo de commit", "Un archivo de texto", "Un repositorio remoto"], "correct": 0},
+        {"type": "mc", "q": "¿Qué comando muestra el historial completo de commits?", "options": ["git log", "git history", "git commits", "git show"], "correct": 0},
+        {"type": "mc", "q": "¿Qué archivo se usa para evitar que ciertos archivos o carpetas sean rastreados por Git?", "options": [".gitignore", ".ignore", "git.ignore", "ignore.git"], "correct": 0},
+        {"type": "mc", "q": "¿Cuál comando quita archivos del área de staging sin perder las modificaciones?", "options": ["git restore --staged", "git remove", "git revert", "git delete"], "correct": 0},
+        {"type": "mc", "q": "¿Qué nombre recibe comúnmente el repositorio remoto principal?", "options": ["origin", "remote", "main", "server"], "correct": 0},
+        {"type": "fill", "q": "El comando para guardar cambios en el historial local es git ___.", "correct": ["commit"]},
+        {"type": "fill", "q": "Para descargar un repositorio remoto a la computadora local por primera vez se usa git ___.", "correct": ["clone"]},
+        {"type": "fill", "q": "El comando para cambiar de una rama a otra es git ___ (o switch).", "correct": ["checkout"]},
+        {"type": "fill", "q": "Para integrar los cambios de una rama en la rama actual se usa git ___.", "correct": ["merge"]},
+        {"type": "fill", "q": "El comando para obtener y fusionar cambios del remoto a la rama actual es git ___.", "correct": ["pull"]},
+        {"type": "fill", "q": "Un punto de guardado en Git con un identificador único (hash) y un mensaje descriptivo se denomina ___.", "correct": ["commit"]},
+        {"type": "fill", "q": "¿Qué sistema de control de versiones distribuido es el más usado en la actualidad?", "correct": ["git"]}
+      ];
+      
+      let currentSessionQuestions = [];
+      let timerInterval;
+      let timeRemaining = 20 * 60; // 20 minutes in seconds
+
+      const views = {
+        intro: document.getElementById('quiz-intro'),
+        active: document.getElementById('quiz-active'),
+        results: document.getElementById('quiz-results')
+      };
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("[data-animate]").forEach((el) => {
+          el.classList.add("visible");
+        });
+      });
+
+      window.addEventListener('beforeunload', (e) => {
+        if (views.active.style.display === 'block') {
+          e.preventDefault();
+          e.returnValue = '';
+        }
+      });
+
+      document.getElementById('start-btn').addEventListener('click', startQuiz);
+      document.getElementById('submit-btn').addEventListener('click', submitQuiz);
+      document.getElementById('retry-btn').addEventListener('click', () => {
+        views.results.style.display = 'none';
+        views.intro.style.display = 'block';
+      });
+
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
+
+      function startQuiz() {
+        let pool = [...ALL_QUESTIONS];
+        shuffleArray(pool);
+        currentSessionQuestions = pool.slice(0, 10);
+        
+        renderQuestions();
+        
+        views.intro.style.display = 'none';
+        views.results.style.display = 'none';
+        views.active.style.display = 'block';
+        
+        timeRemaining = 20 * 60;
+        updateTimerDisplay();
+        clearInterval(timerInterval);
+        timerInterval = setInterval(timerTick, 1000);
+        
+        window.scrollTo(0, 0);
+      }
+
+      function renderQuestions() {
+        const container = document.getElementById('questions-container');
+        // If reviewing, we should clear the review container as well
+        const reviewContainer = document.getElementById('results-review');
+        if (reviewContainer.contains(container)) {
+          // It was moved to review, move it back to active
+          document.querySelector('#quiz-active .quiz-container').insertBefore(container, document.querySelector('#quiz-active .quiz-container').children[1]);
+        }
+        
+        container.innerHTML = '';
+        
+        currentSessionQuestions.forEach((q, index) => {
+          const card = document.createElement('div');
+          card.className = 'question-card';
+          card.id = 'qcard-' + index;
+          
+          let optionsHtml = '';
+          
+          if (q.type === 'tf') {
+            optionsHtml = `
+              <div class="options">
+                <label><input type="radio" name="q-${index}" value="true"> Verdadero</label>
+                <label><input type="radio" name="q-${index}" value="false"> Falso</label>
+              </div>
+            `;
+          } else if (q.type === 'mc') {
+            let opts = q.options.map((opt, i) => ({ text: opt, isCorrect: i === q.correct }));
+            shuffleArray(opts);
+            q.shuffledOptions = opts;
+            
+            optionsHtml = '<div class="options">';
+            opts.forEach((opt, i) => {
+              const escapedOpt = opt.text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+              optionsHtml += `<label><input type="radio" name="q-${index}" value="${i}"> ${escapedOpt}</label>`;
+            });
+            optionsHtml += '</div>';
+          } else if (q.type === 'fill') {
+            optionsHtml = `
+              <div class="options">
+                <input type="text" id="q-${index}-fill" placeholder="Escribe tu respuesta aquí...">
+              </div>
+            `;
+          }
+          
+          const escapedQ = q.q.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          
+          card.innerHTML = `
+            <h3>Pregunta ${index + 1}</h3>
+            <p>${escapedQ}</p>
+            ${optionsHtml}
+            <div class="feedback" id="feedback-${index}"></div>
+          `;
+          
+          container.appendChild(card);
+        });
+      }
+
+      function timerTick() {
+        timeRemaining--;
+        updateTimerDisplay();
+        
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          submitQuiz();
+        }
+      }
+
+      function updateTimerDisplay() {
+        const timerEl = document.getElementById('timer');
+        const mins = Math.floor(timeRemaining / 60).toString().padStart(2, '0');
+        const secs = (timeRemaining % 60).toString().padStart(2, '0');
+        timerEl.textContent = `${mins}:${secs}`;
+        
+        if (timeRemaining <= 60) {
+          timerEl.classList.add('warning');
+        } else {
+          timerEl.classList.remove('warning');
+        }
+      }
+
+      function submitQuiz() {
+        clearInterval(timerInterval);
+        
+        let score = 0;
+        
+        currentSessionQuestions.forEach((q, index) => {
+          let isCorrect = false;
+          let correctAnswerDisplay = '';
+          const card = document.getElementById('qcard-' + index);
+          const feedbackDiv = document.getElementById('feedback-' + index);
+          
+          card.querySelectorAll('input').forEach(input => input.disabled = true);
+          
+          if (q.type === 'tf') {
+            const checked = card.querySelector(`input[name="q-${index}"]:checked`);
+            const userVal = checked ? (checked.value === 'true') : null;
+            if (userVal === q.correct) {
+              isCorrect = true;
+            }
+            if (checked) checked.parentElement.classList.add(isCorrect ? 'correct-ans' : 'incorrect-ans');
+            
+            const correctRadio = card.querySelector(`input[value="${q.correct}"]`);
+            if (correctRadio) correctRadio.parentElement.classList.add('correct-ans');
+            
+            correctAnswerDisplay = q.correct ? "Verdadero" : "Falso";
+
+          } else if (q.type === 'mc') {
+            const checked = card.querySelector(`input[name="q-${index}"]:checked`);
+            if (checked) {
+              const selectedOptIndex = parseInt(checked.value);
+              isCorrect = q.shuffledOptions[selectedOptIndex].isCorrect;
+              checked.parentElement.classList.add(isCorrect ? 'correct-ans' : 'incorrect-ans');
+            }
+            
+            const correctIndex = q.shuffledOptions.findIndex(o => o.isCorrect);
+            const correctRadio = card.querySelector(`input[value="${correctIndex}"]`);
+            if (correctRadio) correctRadio.parentElement.classList.add('correct-ans');
+            
+          } else if (q.type === 'fill') {
+            const input = document.getElementById(`q-${index}-fill`);
+            const userVal = input.value.trim().toLowerCase();
+            isCorrect = q.correct.some(ans => ans.toLowerCase() === userVal);
+            
+            if (isCorrect) {
+              input.classList.add('correct-ans');
+            } else {
+              input.classList.add('incorrect-ans');
+            }
+            correctAnswerDisplay = q.correct[0];
+            if (!isCorrect) {
+               feedbackDiv.innerHTML = `La respuesta correcta era: <strong>${correctAnswerDisplay}</strong>`;
+            }
+          }
+          
+          if (isCorrect) {
+            score++;
+            if (q.type !== 'fill') {
+              feedbackDiv.innerHTML = `¡Correcto!`;
+            } else {
+              feedbackDiv.innerHTML = `¡Correcto!`;
+            }
+            feedbackDiv.className = 'feedback success';
+          } else {
+            if (q.type !== 'fill') {
+              feedbackDiv.innerHTML = `Incorrecto.`;
+            }
+            feedbackDiv.className = 'feedback error';
+          }
+        });
+        
+        document.getElementById('result-score').innerHTML = `
+          Obtuviste <strong>${score}</strong> de <strong>10</strong> puntos.<br>
+          ${score >= 6 ? '¡Aprobado! 🎉' : 'Sigue practicando. 📖'}
+        `;
+        
+        const reviewContainer = document.getElementById('results-review');
+        reviewContainer.innerHTML = '';
+        reviewContainer.appendChild(document.getElementById('questions-container'));
+        
+        views.active.style.display = 'none';
+        views.results.style.display = 'block';
+        window.scrollTo(0, 0);
+      }
+    </script>
+</body>
+</html>

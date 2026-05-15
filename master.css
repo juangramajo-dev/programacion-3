@@ -337,22 +337,154 @@ body {
     background: rgba(15, 23, 42, 0.95) !important;
     backdrop-filter: blur(10px);
     border-right: 1px solid var(--glass-border) !important;
-    top: 0 !important; /* Reset Height of the navbar */
+    top: 0 !important;
     height: 100vh !important;
+    width: 280px !important;
+    position: fixed !important;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 90;
 }
 
 #content {
     background: transparent !important;
     color: var(--text-main) !important;
-    padding-top: 40px !important; /* Reset Space for navbar and some padding */
+    padding: 40px !important;
+    margin-left: 280px !important;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 100% !important;
+    width: auto !important;
+    box-sizing: border-box;
 }
 
-#sidebar-toggle {
-    top: 20px !important; /* Adjust toggle button if it exists */
-    background: var(--primary) !important;
-    border-color: var(--glass-border) !important;
-    color: white !important;
-    z-index: 101 !important;
+/* Sidebar Toggle Logic (Checkbox Hack) */
+.sidebar-toggle-check {
+    display: none;
+}
+
+/* Base button style */
+.sidebar-toggle-btn {
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+/* OUTSIDE button (arrow to show sidebar) */
+.sidebar-toggle-btn.outside {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 80;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(10px);
+    color: var(--text-muted);
+    width: 32px;
+    height: 42px;
+    border: none;
+    border-right: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
+    border-radius: 0 0 8px 0;
+    font-size: 0.85rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-32px);
+}
+
+.sidebar-toggle-btn.outside:hover {
+    background: rgba(30, 40, 60, 0.95);
+    color: var(--text-main);
+}
+
+/* INSIDE button (to hide sidebar) */
+.sidebar-toggle-btn.inside {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--glass-border);
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    gap: 8px;
+}
+
+.sidebar-toggle-btn.inside:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-main);
+}
+
+/* Desktop Logic (Checked = HIDDEN) */
+.sidebar-toggle-check:checked ~ #sidebar {
+    transform: translateX(-280px);
+}
+.sidebar-toggle-check:checked ~ #content {
+    margin-left: 0 !important;
+}
+.sidebar-toggle-check:checked ~ .sidebar-toggle-btn.outside {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+/* Responsive — Tablet & Mobile */
+@media (max-width: 1024px) {
+    body {
+        display: block !important;
+    }
+
+    #sidebar {
+        transform: translateX(-280px);
+        z-index: 2000;
+    }
+
+    #content {
+        margin-left: 0 !important;
+        padding: 30px 20px !important;
+        width: 100% !important;
+    }
+
+    .sidebar-toggle-btn.outside {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(0);
+    }
+
+    /* On mobile, Checked = VISIBLE */
+    .sidebar-toggle-check:checked ~ #sidebar {
+        transform: translateX(0);
+    }
+    .sidebar-toggle-check:checked ~ .sidebar-toggle-btn.outside {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(-32px);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    #content {
+        padding: 20px 15px !important;
+    }
+    #content img {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+    #content pre {
+        max-width: calc(100vw - 30px);
+        overflow-x: auto;
+        font-size: 0.8rem;
+    }
+    #content table {
+        display: block;
+        overflow-x: auto;
+        max-width: 100%;
+    }
+    .topics-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
 }
 
 .menu-item {
@@ -389,4 +521,70 @@ pre {
 [data-animate].visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Section Pagination */
+.section-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--glass-border);
+    gap: 16px;
+}
+
+.section-pagination .page-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    max-width: 45%;
+}
+
+.section-pagination .page-btn:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.section-pagination .page-btn.next {
+    margin-left: auto;
+    text-align: right;
+    flex-direction: row-reverse;
+}
+
+.section-pagination .page-btn .page-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: block;
+}
+
+.section-pagination .page-btn .page-title {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.section-pagination .page-btn .page-arrow {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .section-pagination .page-btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+    }
 }

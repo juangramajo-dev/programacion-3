@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- saved from url=(0090)https://frlr.cvg.utn.edu.ar/pluginfile.php/61005/mod_resource/content/1/index.html?embed=1 -->
 <html lang="es" data-qb-installed="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Introducción a JavaScript</title>
     <link rel="stylesheet" href="master.css">
     <link rel="stylesheet" href="./Introducción a JavaScript_files/tokyo-night-dark.min.css">
@@ -1125,12 +1125,17 @@ mjx-container[jax="CHTML"] > mjx-math.NCM-N[breakable] > * {
             <div class="nav-links">
                 <a href="index.html">Inicio</a>
                 <a href="index.html#temas">Temas</a>
+                <a href="Evaluación.html">Evaluación</a>
                 <a href="https://frlr.cvg.utn.edu.ar/" target="_blank">Campus</a>
             </div>
         </nav>
     </div>
-    <button id="sidebar-toggle" type="button" title="Contraer panel" aria-expanded="true">◀</button>
+    <input type="checkbox" id="sidebar-toggle-check" class="sidebar-toggle-check">
+    <label for="sidebar-toggle-check" class="sidebar-toggle-btn outside" title="Mostrar Índice">▶</label>
     <div id="sidebar">
+        <label for="sidebar-toggle-check" class="sidebar-toggle-btn inside">
+            ◀ Ocultar Índice
+        </label>
       <h3 style="color: var(--accent)">Índice</h3>
       <div class="menu-item active" data-target="section-0">Introducción a JavaScript</div>
 <div class="menu-item" data-target="section-1">¿Qué es JavaScript?</div>
@@ -1544,8 +1549,6 @@ completas.</p></div>
     </script>
     <script src="./Introducción a JavaScript_files/tex-mml-chtml.js.descarga"></script>
     <script>
-      const sidebarToggle = document.getElementById("sidebar-toggle")
-
       function addCopyButtons() {
         document.querySelectorAll("pre code").forEach((code) => {
           if (code.parentElement.querySelector(".copy-btn")) return
@@ -1578,11 +1581,32 @@ completas.</p></div>
         })
       }
 
-      function setSidebarCollapsed(collapsed) {
-        document.body.classList.toggle("sidebar-collapsed", collapsed)
-        sidebarToggle.textContent = collapsed ? "▶" : "◀"
-        sidebarToggle.title = collapsed ? "Expandir panel" : "Contraer panel"
-        sidebarToggle.setAttribute("aria-expanded", String(!collapsed))
+      function updatePagination(id) {
+        const sections = [...document.querySelectorAll(".content-section")]
+        const items = [...document.querySelectorAll(".menu-item")]
+        const idx = sections.findIndex((s) => s.id === id)
+        const active = document.getElementById(id)
+        let pag = active.querySelector(".section-pagination")
+        if (!pag) {
+          pag = document.createElement("div")
+          pag.className = "section-pagination"
+          active.appendChild(pag)
+        }
+        pag.innerHTML = ""
+        if (idx > 0) {
+          const prev = document.createElement("button")
+          prev.className = "page-btn prev"
+          prev.innerHTML = '<span class="page-arrow">◀</span><span><span class="page-label">Anterior</span><span class="page-title">' + items[idx - 1].textContent + "</span></span>"
+          prev.addEventListener("click", () => showSection(sections[idx - 1].id))
+          pag.appendChild(prev)
+        }
+        if (idx < sections.length - 1) {
+          const next = document.createElement("button")
+          next.className = "page-btn next"
+          next.innerHTML = '<span><span class="page-label">Siguiente</span><span class="page-title">' + items[idx + 1].textContent + '</span></span><span class="page-arrow">▶</span>'
+          next.addEventListener("click", () => showSection(sections[idx + 1].id))
+          pag.appendChild(next)
+        }
       }
 
       function showSection(id) {
@@ -1591,6 +1615,7 @@ completas.</p></div>
           .forEach((s) => (s.style.display = "none"))
         document.getElementById(id).style.display = "block"
         setActiveMenuItem(id)
+        updatePagination(id)
         window.scrollTo(0, 0)
         hljs.highlightAll()
         hljs.initLineNumbersOnLoad()
@@ -1599,18 +1624,17 @@ completas.</p></div>
         if (window.__mermaidRender) window.__mermaidRender()
       }
 
-      sidebarToggle.addEventListener("click", () => {
-        setSidebarCollapsed(
-          !document.body.classList.contains("sidebar-collapsed")
-        )
-      })
 
       document.querySelectorAll(".menu-item").forEach((item) => {
-        item.addEventListener("click", () => showSection(item.dataset.target))
-      })
+        item.addEventListener("click", () => {
+          showSection(item.dataset.target);
+          if (window.innerWidth <= 1024) {
+            document.getElementById("sidebar-toggle-check").checked = false;
+          }
+        });
+      });
 
       // Mostrar la primera sección por defecto
-      setSidebarCollapsed(false)
       const first = document.querySelector(".content-section")
       if (first) showSection(first.id)
       else {
